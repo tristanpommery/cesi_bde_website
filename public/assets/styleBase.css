@@ -1,0 +1,45 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+
+.banner{
+    height: 560px;
+    background-color: white;
+    /* 24x7 */
+    background-image: url("https://via.placeholder.com/2160x630");
+    background-size : 100%;
+    background-position:center;
+}
+
+#mainTitle{
+    margin: 0px;
+    padding: 0px;
+}
+
+nav{
+    background-color: #161616;
+    position: sticky;
+    z-index: 99;
+}
+
+#navList{
+    display:grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto 150px 150px;
+}
+
+.navElement{
+    color: white;
+    list-style: none;
+}
+
+.navElement a{
+    text-decoration: none;
+    color: white;
+}
+
+.navElement a:hover{
+    text-decoration: none;
+    color: white;
+}
