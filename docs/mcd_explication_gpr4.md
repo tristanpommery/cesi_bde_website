@@ -8,7 +8,7 @@ Nous avons décidé de mettre la table des évènements dans les bases de donné
 
 ## Tables
 
-> Les tables `user_like`, `user_association` et `user_participation` sont fictives. En réalité elles seront remplacées par l’acquisition des données utilisateurs via l’API. Les tables `user`, `promotion` et `campus` sont stockées sur la base de données nationale.
+> Les tables `user`, `promotion` et `campus` sont stockées sur la base de données nationale.
 
 
 
