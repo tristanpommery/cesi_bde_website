@@ -14,15 +14,15 @@
             </div>
             <nav>
                 <lu id="navList">
-                    <li class="navElement">
+                    <li class="navElement" id="search">
                         <form action="">
                             <input type="text" required placeholder="Recherche">
                             <button type="submit">O</button>
                         </form>
                     </li>
 
-                    <li class="navElement"><a href="{{ path('signup') }}">S'inscrire</a></li>
-                    <li class="navElement"><a href="{{ path('login') }}">Connexion</a></li>
+                    <li class="navElement" id="signup"><a href="{{ path('signup') }}">S'inscrire</a></li>
+                    <li class="navElement" id="login"><a href="{{ path('login') }}">Connexion</a></li>
                 </lu>
             </nav>
         {% endblock %}
