@@ -39,14 +39,15 @@ class Association
     private $products;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="associations")
+     * @ORM\ManyToMany(targetEntity="App\Entity\FakeUser", mappedBy="associations")
      */
-    private $users;
+    private $fakeUsers;
+
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->users = new ArrayCollection();
+        $this->fakeUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,26 +123,28 @@ class Association
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|FakeUser[]
      */
-    public function getUsers(): Collection
+    public function getFakeUsers(): Collection
     {
-        return $this->users;
+        return $this->fakeUsers;
     }
 
-    public function addUser(User $user): self
+    public function addFakeUser(FakeUser $fakeUser): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
+        if (!$this->fakeUsers->contains($fakeUser)) {
+            $this->fakeUsers[] = $fakeUser;
+            $fakeUser->addAssociation($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeFakeUser(FakeUser $fakeUser): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
+        if ($this->fakeUsers->contains($fakeUser)) {
+            $this->fakeUsers->removeElement($fakeUser);
+            $fakeUser->removeAssociation($this);
         }
 
         return $this;
