@@ -20,7 +20,7 @@ class GalleryController extends AbstractController
      */
     public function index(GalleryRepository $galleryRepository): Response
     {
-        return $this->render('admin/gallery/index.html.twig', [
+        return $this->render('main/gallery/index.html.twig', [
             'galleries' => $galleryRepository->findAll(),
         ]);
     }
@@ -42,7 +42,7 @@ class GalleryController extends AbstractController
             return $this->redirectToRoute('gallery_index');
         }
 
-        return $this->render('admin/gallery/new.html.twig', [
+        return $this->render('main/gallery/new.html.twig', [
             'gallery' => $gallery,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class GalleryController extends AbstractController
      */
     public function show(Gallery $gallery): Response
     {
-        return $this->render('admin/gallery/show.html.twig', [
+        return $this->render('main/gallery/show.html.twig', [
             'gallery' => $gallery,
         ]);
     }
@@ -72,7 +72,7 @@ class GalleryController extends AbstractController
             return $this->redirectToRoute('gallery_index');
         }
 
-        return $this->render('admin/gallery/edit.html.twig', [
+        return $this->render('main/gallery/edit.html.twig', [
             'gallery' => $gallery,
             'form' => $form->createView(),
         ]);
