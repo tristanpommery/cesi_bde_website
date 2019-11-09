@@ -1,0 +1,44 @@
+@font-face{
+    font-family: 'roboto-regular';
+    src: url('/assets/fonts/Roboto-Regular.ttf');
+}
+
+.banner{
+    height: 560px;
+    background-color: white;
+    /* 24x7 */
+    background-image: url("https://via.placeholder.com/2160x630");
+    background-position:center;
+    display: grid;
+    /*grid-template-rows: 30px auto auto 30px;*/
+}
+
+#bannerText{
+    text-align: center;
+    align-self: center;
+}
+
+.fa-wordpress{
+    grid-row: 2;
+    font-size: 8em;
+    text-align: center;
+    align-self: end;
+}
+
+#mainTitle{
+    grid-row: 3;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'roboto-regular';
+    font-size: 3em;
+    
+}
+
+#bde{
+    font-size: 2em;
+}
+
+#content{
+    background: grey;
+    height: 2000px;
+}

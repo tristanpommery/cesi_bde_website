@@ -3,33 +3,45 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}BDE CESI Strasbourg{% endblock %}</title>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="/assets/styleBase.css">
-        {% endblock %}
+        <link rel="stylesheet" href="/assets/styleBase.css">
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block header %}
-            <div class="banner">
-                <h1 id="mainTitle">CESI - Strasbourg<br/>Bureau Des Élèves</h1>
+        {% block header %}{% endblock %}
+        <nav>
+            <lu id="navList">
+                <li class="navElement" id="search">
+                    <form action="">
+                        <input type="text" placeholder="Recherche">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
+                <li class="navElement" id="signup"><a href="{{ path('signup') }}">S'inscrire</a></li>
+                <li class="navElement" id="login"><a href="{{ path('login') }}">Connexion</a></li>
+            </lu>
+        </nav>
+        <i class="fas fa-bars" id="menuIcon"></i>
+        <div id="sideMenu">
+            <div class="menuElement" id="homeLink"><a href="#">Accueil</a></div>
+            <div class="menuElement" id="eventsLink"><a href="#">Evènements</a></div>
+            <div class="menuElement" id="associationsLink"><a href="#">Associations</a></div>
+            <div class="menuElement" id="shopLink"><a href="#">Boutique</a></div>
+            <div class="menuElement" id="networks">
+                <div class="socialNetworks">
+                    <a href="https://www.facebook.com/BDECESISTRAS/"><i class="fab fa-facebook-square"></i></a>
+                    <a href="https://www.instagram.com/bdecesi.stras/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://discord.gg/z7ZNz7v"><i class="fab fa-discord"></i></a>
+                </div>
             </div>
-            <nav>
-                <lu id="navList">
-                    <li class="navElement" id="search">
-                        <form action="">
-                            <input type="text" required placeholder="Recherche">
-                            <button type="submit">O</button>
-                        </form>
-                    </li>
-
-                    <li class="navElement" id="signup"><a href="{{ path('signup') }}">S'inscrire</a></li>
-                    <li class="navElement" id="login"><a href="{{ path('login') }}">Connexion</a></li>
-                </lu>
-            </nav>
-        {% endblock %}
+            <div class="menuElement" id="cesiLogo">
+                <a href="https://www.cesi.fr/"><img src="/assets/pictures/logo-CESI-neg.png"></a>
+            </div>
+        </div>
         {% block body %}{% endblock %}
-        {% block footer %}
-        
+        {% block footer %}{% endblock %}
+        <script src="https://kit.fontawesome.com/f7c32aec99.js" crossorigin="anonymous"></script>
+        <script src="/assets/base.js"></script>
+        {% block javascripts %}
         {% endblock %}
-        {% block javascripts %}{% endblock %}
     </body>
 </html>

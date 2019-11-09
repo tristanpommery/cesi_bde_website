@@ -1,7 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/main/styleHome.css">
+{% endblock %}
 
+{% block header %}
+    <div class="banner">
+        <div id="bannerText">
+            <i class="fab fa-wordpress"></i>
+            <h1 id="mainTitle">CESI - Strasbourg<br/><span id="bde">Bureau Des Étudiants</span></h1>
+        </div>
+    </div>
+{% endblock %}
 {% block body %}
-
+    <div id="content"></div>
 {% endblock %}
