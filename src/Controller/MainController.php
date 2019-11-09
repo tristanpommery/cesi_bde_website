@@ -24,7 +24,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/event", name="allEvents")
+     * @Route("/event", name="all_events")
      */
     public function allEvent()
     {
@@ -52,7 +52,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/association", name="allAssociations")
+     * @Route("/association", name="all_associations")
      */
     public function allAssociations()
     {
@@ -68,4 +68,15 @@ class MainController extends AbstractController
             'id'=>$id,
         ]);
     }
+
+    /**
+     * @Route("/admin", name="admin_index")
+     */
+    public function adminIndex()
+    {
+        return $this->render('admin/index.html.twig');
+
+    }
+
+
 }

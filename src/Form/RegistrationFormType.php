@@ -21,21 +21,9 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('firstName', TextType::class, [
                 'mapped'=> false,
-                'constraints'=> [
-                    new Length([
-                        'min'=> 2,
-                        'max'=> 4096
-                    ]),
-                ],
             ])
             ->add('lastName', TextType::class, [
                 'mapped'=> false,
-                'constraints'=>[
-                    new Length([
-                        'min' => 2,
-                        'max' => 4096
-                    ]),
-                ],
             ])
             ->add('email', EmailType::class, [
                 'mapped'=>false,
@@ -57,10 +45,18 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Please enter a password',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 8,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
+                    ]),
+                ],
+            ])
+            ->add('gender', TextType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message'=>'Please enter your gender',
                     ]),
                 ],
             ])

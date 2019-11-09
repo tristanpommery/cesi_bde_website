@@ -43,11 +43,17 @@ class Association
      */
     private $fakeUsers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="association")
+     */
+    private $event;
+
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
         $this->fakeUsers = new ArrayCollection();
+        $this->event = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,6 +151,37 @@ class Association
         if ($this->fakeUsers->contains($fakeUser)) {
             $this->fakeUsers->removeElement($fakeUser);
             $fakeUser->removeAssociation($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvent(): Collection
+    {
+        return $this->event;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->event->contains($event)) {
+            $this->event[] = $event;
+            $event->setAssociation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->event->contains($event)) {
+            $this->event->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getAssociation() === $this) {
+                $event->setAssociation(null);
+            }
         }
 
         return $this;

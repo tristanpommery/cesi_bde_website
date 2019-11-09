@@ -68,6 +68,7 @@ class Event
      */
     private $fakeUsers;
 
+
     public function __construct()
     {
         $this->galleries = new ArrayCollection();
@@ -253,4 +254,6 @@ class Event
 
         return $this;
     }
+
+
 }
