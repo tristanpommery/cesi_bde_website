@@ -22,4 +22,4 @@
 ###< symfony/web-server-bundle ###
 
 ### Node modules ###
-/node_modules
+/node_modules/
