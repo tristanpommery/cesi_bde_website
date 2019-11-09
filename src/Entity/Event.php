@@ -59,20 +59,20 @@ class Event
     private $galleries;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="events")
-     */
-    private $users;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="event")
      */
     private $comments;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\FakeUser", mappedBy="events")
+     */
+    private $fakeUsers;
+
     public function __construct()
     {
         $this->galleries = new ArrayCollection();
-        $this->users = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->fakeUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -196,32 +196,6 @@ class Event
     }
 
     /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Comment[]
      */
     public function getComments(): Collection
@@ -247,6 +221,34 @@ class Event
             if ($comment->getEvent() === $this) {
                 $comment->setEvent(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FakeUser[]
+     */
+    public function getFakeUsers(): Collection
+    {
+        return $this->fakeUsers;
+    }
+
+    public function addFakeUser(FakeUser $fakeUser): self
+    {
+        if (!$this->fakeUsers->contains($fakeUser)) {
+            $this->fakeUsers[] = $fakeUser;
+            $fakeUser->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFakeUser(FakeUser $fakeUser): self
+    {
+        if ($this->fakeUsers->contains($fakeUser)) {
+            $this->fakeUsers->removeElement($fakeUser);
+            $fakeUser->removeEvent($this);
         }
 
         return $this;

@@ -27,12 +27,6 @@ class Comment
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="comments")
      */
     private $event;
@@ -41,6 +35,12 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="comments")
      */
     private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\FakeUser", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $fakeUser;
 
     public function getId(): ?int
     {
@@ -71,18 +71,6 @@ class Comment
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getEvent(): ?Event
     {
         return $this->event;
@@ -103,6 +91,18 @@ class Comment
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getFakeUser(): ?FakeUser
+    {
+        return $this->fakeUser;
+    }
+
+    public function setFakeUser(?FakeUser $fakeUser): self
+    {
+        $this->fakeUser = $fakeUser;
 
         return $this;
     }
