@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/comment")
+ * @Route("/main/comment")
  */
 class CommentController extends AbstractController
 {
@@ -20,7 +20,7 @@ class CommentController extends AbstractController
      */
     public function index(CommentRepository $commentRepository): Response
     {
-        return $this->render('admin/comment/index.html.twig', [
+        return $this->render('main/comment/index.html.twig', [
             'comments' => $commentRepository->findAll(),
         ]);
     }

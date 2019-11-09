@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route ("/admin/association")
+ * @Route ("/main/association")
  */
 class AssociationController extends AbstractController
 {
@@ -21,7 +21,7 @@ class AssociationController extends AbstractController
      */
     public function index(AssociationRepository $associationRepository): Response
     {
-        return $this->render('admin/association/index.html.twig', [
+        return $this->render('main/association/index.html.twig', [
             'associations' => $associationRepository->findAll(),
         ]);
     }
@@ -43,7 +43,7 @@ class AssociationController extends AbstractController
             return $this->redirectToRoute('association_index');
         }
 
-        return $this->render('admin/association/new.html.twig', [
+        return $this->render('main/association/new.html.twig', [
             'association' => $association,
             'form' => $form->createView(),
         ]);
@@ -63,7 +63,7 @@ class AssociationController extends AbstractController
             return $this->redirectToRoute('association_index');
         }
 
-        return $this->render('admin/association/edit.html.twig', [
+        return $this->render('main/association/edit.html.twig', [
             'association' => $association,
             'form' => $form->createView(),
         ]);
@@ -88,7 +88,7 @@ class AssociationController extends AbstractController
      */
     public function show(Association $association): Response
     {
-        return $this->render('admin/association/show.html.twig', [
+        return $this->render('main/association/show.html.twig', [
             'association' => $association,
         ]);
     }
