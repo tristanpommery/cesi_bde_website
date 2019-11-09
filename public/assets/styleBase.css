@@ -118,6 +118,7 @@ nav{
     display: grid;
     align-content: center;
     padding-left: 10px;
+    outline: none;
 }
 
 #homeLink{

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/main/event")
+ * @Route("/event")
  */
 class EventController extends AbstractController
 {
