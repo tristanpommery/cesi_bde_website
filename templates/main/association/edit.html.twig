@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Edit Association</h1>
 
-    {{ include('admin/association/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('main/association/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('association_index') }}">back to list</a>
 
-    {{ include('admin/association/_delete_form.html.twig') }}
+    {{ include('main/association/_delete_form.html.twig') }}
 {% endblock %}
