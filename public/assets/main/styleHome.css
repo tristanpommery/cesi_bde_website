@@ -3,19 +3,24 @@
     src: url('/assets/fonts/Roboto-Regular.ttf');
 }
 
-.banner{
+#banner{
     height: 560px;
+    position: sticky;
     background-color: white;
-    /* 24x7 */
-    background-image: url("https://via.placeholder.com/2160x630");
-    background-position:center;
+    background-image: url("/assets/pictures/banner.png");
+    background-size: 150%;
+    background-position: center;
     display: grid;
-    /*grid-template-rows: 30px auto auto 30px;*/
+    top: 0px;
+    transition: height 1s, background-size 1s;
 }
 
 #bannerText{
+    color: white;
+    display: block;
     text-align: center;
     align-self: center;
+    transition : font-size 1s;
 }
 
 .fa-wordpress{

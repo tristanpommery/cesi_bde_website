@@ -8,7 +8,7 @@
     </head>
     <body>
         {% block header %}{% endblock %}
-        <nav>
+        <nav id="nav">
             <lu id="navList">
                 <li class="navElement" id="search">
                     <form action="">
@@ -22,10 +22,10 @@
         </nav>
         <i class="fas fa-bars" id="menuIcon"></i>
         <div id="sideMenu">
-            <div class="menuElement" id="homeLink"><a href="#">Accueil</a></div>
-            <div class="menuElement" id="eventsLink"><a href="#">Evènements</a></div>
+            <div class="menuElement" id="homeLink"><a href="{{ path('home') }}">Accueil</a></div>
+            <div class="menuElement" id="eventsLink"><a href="{{ path('event_index') }}">Évènements</a></div>
             <div class="menuElement" id="associationsLink"><a href="{{ path('all_associations') }}">Associations</a></div>
-            <div class="menuElement" id="shopLink"><a href="#">Boutique</a></div>
+            <div class="menuElement" id="shopLink"><a href="{{ path('shop') }}">Boutique</a></div>
             <div class="menuElement" id="networks">
                 <div class="socialNetworks">
                     <a href="https://www.facebook.com/BDECESISTRAS/"><i class="fab fa-facebook-square"></i></a>

@@ -11,8 +11,9 @@ body{
 nav{
     background-color: #161616;
     position: sticky;
-    top: 0px;
+    top: 560px;
     z-index: 99;
+    transition: top 1s;
 }
 
 #navList{
