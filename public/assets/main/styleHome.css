@@ -44,6 +44,15 @@
 }
 
 #content{
-    background: grey;
+    background: #8a8d8f;
     height: 2000px;
+    display: grid;
+    grid-template-columns: auto 1200px auto;
+    grid-template-rows: 100px auto;
+}
+
+#about{
+    background: white;
+    grid-column: 2;
+    grid-row: 2;
 }
