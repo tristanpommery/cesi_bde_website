@@ -2,25 +2,20 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\EventRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function home()
+    public function home(EventRepository $eventRepository)
     {
-        return $this->render('main/home.html.twig');
-    }
-
-    /**
-     * @Route("/about", name="about")
-     */
-    public function about()
-    {
-        return $this->render('main/about.html.twig');
+        return $this->render('main/home.html.twig', [
+            'events' => $eventRepository->find3firsts(),
+        ]);
     }
 
     /**

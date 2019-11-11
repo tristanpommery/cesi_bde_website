@@ -14,8 +14,35 @@
 {% endblock %}
 {% block body %}
     <div id="content">
+        <div id="rightBar"></div>
         <div id="about">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum officiis repellat similique. Voluptate nobis amet necessitatibus sapiente magnam molestiae minima molestias tenetur aliquid esse. Reprehenderit esse reiciendis non enim, rerum quidem dignissimos fugit incidunt itaque nesciunt delectus adipisci officiis repellat quibusdam laboriosam veniam distinctio aut quasi dolorum quas obcaecati? Praesentium?</p>
+            <h2>Qui sommes-nous?</h2>
+            <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum officiis repellat similique. Voluptate nobis amet necessitatibus sapiente magnam molestiae minima molestias tenetur aliquid esse. Reprehenderit esse reiciendis non enim, rerum quidem dignissimos fugit incidunt itaque nesciunt delectus adipisci officiis repellat quibusdam laboriosam veniam distinctio aut quasi dolorum quas obcaecati? Praesentium?
+            <br/><br/>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos doloremque asperiores maxime illum omnis voluptatum facilis consequuntur, placeat excepturi quos necessitatibus nesciunt nostrum laborum fugiat possimus officiis quibusdam officia amet dolores. Similique commodi corporis nobis accusamus, ullam delectus harum eum illo pariatur non. Incidunt minus tempore qui quae aliquam id facere tempora beatae cumque eum, dolor adipisci consequatur vel ducimus? Dolor distinctio, corporis magni ducimus laudantium tempore voluptas iste rerum minima, officia pariatur maiores, eius placeat commodi unde! Sapiente laborum doloremque ex nemo nulla numquam dolorem maiores culpa vero porro consequuntur, rerum debitis perferendis molestiae adipisci ab deleniti natus repellendus!
+            </p>
+        </div>
+        <div id="events">
+            <h2>Évènements</h2>
+            <p>les plus populaires</p>
+            <div id="eventContent">
+                {% for event in events %}
+                    <div class="eventCard">
+                        <p class="eventName">{{ event.name }}<p>
+                        <p class="eventDay">Le {{ event.date|date('d/m/Y') }}<p>
+                        <p class="eventHour">à {{ event.date|date('H:i') }}<p>
+                        <p class="eventDescription">{{ event.description }}<p>
+                        <p class="eventPrice">Prix: {% if event.price == 0 %}Gratuit{% else %}{{ event.price }} €{% endif %}</p>
+                        <a class="goToEvent" href="{{ path('event_show', {'id': event.id}) }}">Voir</a>
+                    </div>
+                {% endfor %}
+                <a href="{{ path('event_index') }}">Voir plus >></a>
+            </div>
+        </div>
+        <div id="associations">
+        </div>
+        <div id="shop">
         </div>
     </div>
 {% endblock %}
