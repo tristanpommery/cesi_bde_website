@@ -1,7 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Product{% endblock %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/main/shop/styleShop.css">
+{% endblock %}
+{% block header %}
+    <div id="banner">
+        <div id="bannerText">
+            <h1 id="mainTitle">Boutique</h1>
+        </div>
+    </div>
+{% endblock %}
 {% block body %}
     <h1>Product</h1>
 
@@ -34,7 +43,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('product_index') }}">back to list</a>
+    <a href="{{ path('shop') }}">back to list</a>
 
     <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
 
