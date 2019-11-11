@@ -41,8 +41,32 @@
             </div>
         </div>
         <div id="associations">
+            <h2>Associations</h2>
+            <div id="associationContent">
+                {% for association in associations %}
+                {% endfor %}
+                    <div class="associationPanel">
+                        <img class="associationImage" src="https://via.placeholder.com/1280x720">
+                        <p class="associationName"><  Ceci est un carrousel  ></p>
+                    </div>
+                <a href="{{ path('all_associations') }}">Voir plus >></a>
+            </div>
         </div>
         <div id="shop">
+            <h2>Boutique</h2>
+            <p>les plus vendus</p>
+            <div id="shopContent">
+                {% for product in products %}
+                    <div class="shopCard">
+                        <img class="productImage" src="https://via.placeholder.com/150">
+                        <p class="productName">{{ product.name }}<p>
+                        <p class="productStock">Stock: {{ product.stock }}<p>
+                        <p class="productPrice">Prix: {% if product.price == 0 %}Gratuit{% else %}{{ product.price }} €{% endif %}</p>
+                        <a class="goToProduct" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
+                    </div>
+                {% endfor %}
+                <a href="{{ path('event_index') }}">Voir plus >></a>
+            </div>
         </div>
     </div>
 {% endblock %}
