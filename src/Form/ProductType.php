@@ -28,12 +28,10 @@ class ProductType extends AbstractType implements DataMapperInterface
             ->add('category', EntityType::class, [
                 'class'=> Category::class,
                 'choice_label'=>'name',
-                'multiple'=>'false'
             ])
             ->add('association', EntityType::class, [
                 'class'=>Association::class,
                 'choice_label'=>'name',
-                'multiple'=>'false'
             ]);
 
     }
