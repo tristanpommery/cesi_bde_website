@@ -3,6 +3,14 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    {% block header %}
+        <div id="banner">
+            <div id="bannerText">
+                <i class="fab fa-wordpress"></i>
+                <h1 id="mainTitle">CESI - Strasbourg<br/><span id="bde">Bureau Des Étudiants</span></h1>
+            </div>
+        </div>
+    {% endblock %}
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

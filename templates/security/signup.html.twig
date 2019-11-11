@@ -3,6 +3,14 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+    {% block header %}
+        <div id="banner">
+            <div id="bannerText">
+                <i class="fab fa-wordpress"></i>
+                <h1 id="mainTitle">CESI - Strasbourg<br/><span id="bde">Bureau Des Étudiants</span></h1>
+            </div>
+        </div>
+    {% endblock %}
     <h1>Register</h1>
 
     {{ form_start(registrationForm) }}
