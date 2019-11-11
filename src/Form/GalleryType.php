@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Event;
 use App\Entity\Gallery;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -15,7 +16,10 @@ class GalleryType extends AbstractType
     {
         $builder
             ->add('image', TextType::class)
-            ->add('event', EntityType::class)
+            ->add('event', EntityType::class,[
+                'class'=>Event::class,
+                'choice_label'=>'name'
+            ])
             ->add('fakeUser')
         ;
     }

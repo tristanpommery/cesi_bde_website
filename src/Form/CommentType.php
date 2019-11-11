@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Comment;
+use App\Entity\Event;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -17,8 +18,14 @@ class CommentType extends AbstractType
         $builder
             ->add('content', TextareaType::class)
             ->add('createdAt', DateType::class)
-            ->add('event', EntityType::class)
-            ->add('product', EntityType::class)
+            ->add('event', EntityType::class, [
+                'class'=>Event::class,
+                'choice_label'=>'name'
+            ])
+            ->add('product', EntityType::class, [
+                'class'=>Event::class,
+                'choice_label'=>'name'
+            ])
             ->add('fakeUser')
         ;
     }
