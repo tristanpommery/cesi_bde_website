@@ -58,14 +58,14 @@
             <div id="shopContent">
                 {% for product in products %}
                     <div class="shopCard">
-                        <img class="productImage" src="https://via.placeholder.com/150">
+                        <img class="productImage" src="https://via.placeholder.com/1020x2000">
                         <p class="productName">{{ product.name }}<p>
                         <p class="productStock">Stock: {{ product.stock }}<p>
                         <p class="productPrice">Prix: {% if product.price == 0 %}Gratuit{% else %}{{ product.price }} €{% endif %}</p>
                         <a class="goToProduct" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
                     </div>
                 {% endfor %}
-                <a href="{{ path('event_index') }}">Voir plus >></a>
+                <a href="{{ path('shop') }}">Voir plus >></a>
             </div>
         </div>
     </div>
