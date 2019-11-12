@@ -8,6 +8,7 @@ use App\Form\CategoryType;
 use App\Entity\Association;
 use App\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\DataMapperInterface;
@@ -16,24 +17,40 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ProductType extends AbstractType implements DataMapperInterface
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name' )
             ->add('description')
             ->add('price')
             ->add('stock')
-            ->add('image')
+            ->add('image', FileType::class, [
+                'required'=>false,
+                'constraints'=> [
+                    new File([
+                        'mimeTypes'=>[
+                            'image/png',
+                            'image/jpg'
+                        ],
+                        'mimeTypesMessage'=>'Please upload a valid Image Document (PNG / JPG)',
+                    ]),
+                ],
+            ])
             ->add('category', EntityType::class, [
                 'class'=> Category::class,
                 'choice_label'=>'name',
+                'placeholder'=>'Choisissez la catégorie',
+                'empty_data'=>null
             ])
             ->add('association', EntityType::class, [
                 'class'=>Association::class,
                 'choice_label'=>'name',
+                'placeholder'=>'Choisissez l\'association',
+                'empty_data'=>null,
             ]);
 
     }
