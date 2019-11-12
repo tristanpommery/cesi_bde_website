@@ -39,12 +39,11 @@ class ShopController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
+              $imagePath = '/assets/pictures/products/';
               $uploadedFile= $form['image']->getData();
-              dd($uploadedFile);
               $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/products';
               $originalFileName = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-              $newFileName = $originalFileName.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+              $newFileName = uniqid().'.'.$uploadedFile->guessExtension();
 
               $uploadedFile->move(
                   $destination,$newFileName
