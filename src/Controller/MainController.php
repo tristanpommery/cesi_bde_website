@@ -68,14 +68,4 @@ class MainController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/admin", name="admin_index")
-     */
-    public function adminIndex()
-    {
-        return $this->render('main/index.html.twig');
-
-    }
-
-
 }
