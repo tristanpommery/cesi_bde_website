@@ -19,7 +19,7 @@ class Period
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255)
      */
     private $time;
 
@@ -38,7 +38,7 @@ class Period
         return $this->id;
     }
 
-    public function getTime(): ?\DateTimeInterface
+    public function getTime(): ?string
     {
         return $this->time;
     }

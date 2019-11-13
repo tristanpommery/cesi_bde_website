@@ -44,7 +44,7 @@ class Event
     private $price;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $duration;
 
@@ -67,6 +67,11 @@ class Event
      * @ORM\ManyToMany(targetEntity="App\Entity\FakeUser", mappedBy="events")
      */
     private $fakeUsers;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $localization;
 
 
     public function __construct()
@@ -251,6 +256,18 @@ class Event
             $this->fakeUsers->removeElement($fakeUser);
             $fakeUser->removeEvent($this);
         }
+
+        return $this;
+    }
+
+    public function getLocalization(): ?string
+    {
+        return $this->localization;
+    }
+
+    public function setLocalization(string $localization): self
+    {
+        $this->localization = $localization;
 
         return $this;
     }
