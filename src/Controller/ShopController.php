@@ -39,9 +39,9 @@ class ShopController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-              $uploadedFile= $form['image']->getData();
-              $newFileName="https://via.placeholder.com/1020x2000";
-              if($uploadedFile){
+            $uploadedFile= $form['image']->getData();
+            $newFileName="https://via.placeholder.com/1020x2000";
+            if($uploadedFile){
                 $imagePath = '/assets/pictures/products/';
                 $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/products';
                 $newFileName = $imagePath.uniqid().'.'.$uploadedFile->guessExtension();
@@ -49,8 +49,8 @@ class ShopController extends AbstractController
                 $uploadedFile->move(
                     $destination,$newFileName
                 );
-              }
-                $product->setImage($newFileName);
+            }
+            $product->setImage($newFileName);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->flush();
@@ -83,6 +83,18 @@ class ShopController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFile= $form['image']->getData();
+            $newFileName="https://via.placeholder.com/1020x2000";
+            if($uploadedFile){
+                $imagePath = '/assets/pictures/products/';
+                $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/products';
+                $newFileName = $imagePath.uniqid().'.'.$uploadedFile->guessExtension();
+
+                $uploadedFile->move(
+                    $destination,$newFileName
+                );
+              }
+            $product->setImage($newFileName);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('shop');
