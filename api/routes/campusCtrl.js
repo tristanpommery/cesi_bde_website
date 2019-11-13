@@ -7,11 +7,11 @@ var asyncLib = require('async');
 module.exports = {
     addCampus: function (req, res) {
         var name = req.body.name;
-        var headerAuth = req.headers['authorization'];
+        /*var headerAuth = req.headers['authorization'];
         var userRole = jwtUtils.getUserId(headerAuth);
 
         if (userRole !== "admin")
-            return res.status(400).json({ 'error': 'wrong token or not admin' });
+            return res.status(400).json({ 'error': 'wrong token or not admin' });*/
 
         asyncLib.waterfall([
             function (done) {
