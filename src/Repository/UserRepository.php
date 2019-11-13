@@ -6,7 +6,7 @@ use App\Entity\User;
 
 class UserRepository
 {
-    const URL = "http://jsonplaceholder.typicode.com";
+    const URL = "localhost:8080/api";
 
     public function getUsers()
     {
@@ -20,7 +20,7 @@ class UserRepository
     public function getUserById($id)
     {
         $param = "/users/" . $id;
-        $json = $this->callApi('GET', $param, $id);
+        $json = $this->callApi('GET', $param);
         $user = $this->hydrate($json);
 
         return $user;
@@ -29,7 +29,7 @@ class UserRepository
     public function getUserbyEmail($email)
     {
         $param = "/users/" . $email;
-        $json = $this->callApi('GET', $param, $email);
+        $json = $this->callApi('GET', $param);
         $user = $this->hydrate($json);
 
         return $user;
@@ -82,7 +82,7 @@ class UserRepository
             $data = $json;
         }
 
-        if ($data) {
+        if ($data && !isset($data['error'])) {
             $user = new User();
             $user
                 ->setId($data['id'])
@@ -105,8 +105,8 @@ class UserRepository
         curl_setopt($curl, CURLOPT_URL, self::URL . "$param");
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl,CURLOPT_CONNECTTIMEOUT ,3);
-        curl_setopt($curl,CURLOPT_TIMEOUT, 20);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT ,3);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 20);
 
         if ($data) {
             curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
