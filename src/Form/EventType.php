@@ -15,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
 
@@ -28,13 +30,15 @@ class EventType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('image', FileType::class, [
                 'required'=>false,
+                'dataclass'=> null,
                 'constraints'=>[
                     new File([
+                        'maxSize'=>'50M',
                         'mimeTypes'=>[
                             'image/png',
                             'image/jpg'
                         ],
-                        'mimeTypesMessage'=>'Please upload a valid Image Document (PNG / JPG)'
+                        'mimeTypesMessage'=>'Please upload a valid Image Document (heidiPNG / JPG)'
                     ])
                 ]
             ])
