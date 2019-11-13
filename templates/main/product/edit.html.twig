@@ -3,6 +3,7 @@
 {% block title %}Edit Product{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="/assets/main/shop/styleShop.css">
+    <link rel="stylesheet" href="/assets/main/shop/styleShopForm.css">
 {% endblock %}
 {% block header %}
     <div id="banner">
@@ -12,11 +13,17 @@
     </div>
 {% endblock %}
 {% block body %}
-    <h1>Edit Product</h1>
+    <div id="pageContent">
+        <h2 id="action">Modifier un produit</h2>
 
-    {{ include('main/product/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('main/product/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('shop') }}">back to list</a>
+        <a href="{{ path('shop') }}">Retour</a>
 
-    {{ include('main/product/_delete_form.html.twig') }}
+        {{ include('main/product/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/main/product/shopForm.js"></script>
 {% endblock %}
