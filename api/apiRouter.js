@@ -12,6 +12,7 @@ exports.router = (function() {
     apiRouter.route('/users').post(usersCtrl.register);
     apiRouter.route('/campus').post(campusCtrl.addCampus);
     apiRouter.route('/users/campus').post(campusCtrl.getCampus);
+    apiRouter.route('/users/promotion').post(promotionCtrl.getPromotion);
     apiRouter.route('/promotion').post(promotionCtrl.addPromotion);
     apiRouter.route('/users/login/').post(usersCtrl.login);
     apiRouter.route('/users/:param').get(usersCtrl.getUserProfile);
