@@ -41,7 +41,7 @@ class ProductType extends AbstractType implements DataMapperInterface
                         'maxSize'=>'50M',
                         'mimeTypes'=>[
                             'image/png',
-                            'image/jpg'
+                            'image/jpeg'
                         ],
                         'mimeTypesMessage'=>'Please upload a valid Image Document (PNG / JPG)',
                     ]),

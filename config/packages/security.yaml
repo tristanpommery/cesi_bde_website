@@ -18,13 +18,14 @@ security:
             security: false
         main:
             anonymous: true
+
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: home
             guard:
                 authenticators:
                     - App\Security\UserAuthenticator
-            logout:
-                path: logout
-                # where to redirect after logout
-                target: home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
