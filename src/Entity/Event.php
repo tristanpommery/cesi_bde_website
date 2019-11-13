@@ -64,21 +64,21 @@ class Event
     private $comments;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\FakeUser", mappedBy="events")
-     */
-    private $fakeUsers;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $localization;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="events")
+     */
+    private $users;
 
 
     public function __construct()
     {
         $this->galleries = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->fakeUsers = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,34 +232,6 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection|FakeUser[]
-     */
-    public function getFakeUsers(): Collection
-    {
-        return $this->fakeUsers;
-    }
-
-    public function addFakeUser(FakeUser $fakeUser): self
-    {
-        if (!$this->fakeUsers->contains($fakeUser)) {
-            $this->fakeUsers[] = $fakeUser;
-            $fakeUser->addEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFakeUser(FakeUser $fakeUser): self
-    {
-        if ($this->fakeUsers->contains($fakeUser)) {
-            $this->fakeUsers->removeElement($fakeUser);
-            $fakeUser->removeEvent($this);
-        }
-
-        return $this;
-    }
-
     public function getLocalization(): ?string
     {
         return $this->localization;
@@ -272,5 +244,31 @@ class Event
         return $this;
     }
 
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
 
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeEvent($this);
+        }
+
+        return $this;
+    }
 }

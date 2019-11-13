@@ -39,21 +39,21 @@ class Association
     private $products;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\FakeUser", mappedBy="associations")
-     */
-    private $fakeUsers;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="association")
      */
     private $event;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="associations")
+     */
+    private $users;
 
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->fakeUsers = new ArrayCollection();
         $this->event = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,34 +129,6 @@ class Association
     }
 
     /**
-     * @return Collection|FakeUser[]
-     */
-    public function getFakeUsers(): Collection
-    {
-        return $this->fakeUsers;
-    }
-
-    public function addFakeUser(FakeUser $fakeUser): self
-    {
-        if (!$this->fakeUsers->contains($fakeUser)) {
-            $this->fakeUsers[] = $fakeUser;
-            $fakeUser->addAssociation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFakeUser(FakeUser $fakeUser): self
-    {
-        if ($this->fakeUsers->contains($fakeUser)) {
-            $this->fakeUsers->removeElement($fakeUser);
-            $fakeUser->removeAssociation($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Event[]
      */
     public function getEvent(): Collection
@@ -182,6 +154,34 @@ class Association
             if ($event->getAssociation() === $this) {
                 $event->setAssociation(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addAssociation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeAssociation($this);
         }
 
         return $this;

@@ -37,10 +37,10 @@ class Comment
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\FakeUser", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $fakeUser;
+    private $user;
 
     public function getId(): ?int
     {
@@ -95,14 +95,14 @@ class Comment
         return $this;
     }
 
-    public function getFakeUser(): ?FakeUser
+    public function getUser(): ?User
     {
-        return $this->fakeUser;
+        return $this->user;
     }
 
-    public function setFakeUser(?FakeUser $fakeUser): self
+    public function setUser(?User $user): self
     {
-        $this->fakeUser = $fakeUser;
+        $this->user = $user;
 
         return $this;
     }
