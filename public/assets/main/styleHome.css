@@ -28,7 +28,7 @@
     transition : font-size 1s;
 }
 
-.fa-wordpress{
+#bannerText >i{
     grid-row: 2;
     font-size: 8em;
     text-align: center;
@@ -361,10 +361,9 @@
     justify-self: center;
     height: 90%;
     width: 200px;
-    object-fit: cover;
+    object-fit: scale-down;
     grid-column: 1/span 2;
     grid-row: 1;
-    border: 2px solid black;
 }
 
 .productName{

@@ -7,7 +7,7 @@
 {% block header %}
     <div id="banner">
         <div id="bannerText">
-            <i class="fab fa-wordpress"></i>
+            <i class="fab fa-stack-overflow"></i>
             <h1 id="mainTitle">CESI - Strasbourg<br/><span id="bde">Bureau Des Étudiants</span></h1>
         </div>
     </div>
@@ -58,7 +58,7 @@
             <div id="shopContent">
                 {% for product in products %}
                     <div class="shopCard">
-                        <img class="productImage" src="https://via.placeholder.com/1020x2000">
+                        <img class="productImage" src={{ product.image }}>
                         <p class="productName">{{ product.name }}<p>
                         <p class="productStock">{% if product.stock == 0 %}Rupture de stock{% else %}Stock: {{ product.stock }}{% endif %}<p>
                         <p class="productPrice">Prix: {% if product.price == 0 %}Gratuit{% else %}{{ product.price }} €{% endif %}</p>

@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\Category;
 use App\Form\ProductType;
-use App\Repository\ProductRepository;
 use App\Service\ImageUploader;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
+use App\Service\Cart\CartService;
 
 /**
  * @Route ("/shop")
@@ -67,10 +69,12 @@ class ShopController extends AbstractController
     /**
      * @Route("/{id}", name="product_show", methods={"GET"})
      */
-    public function show(Product $product): Response
+    public function show(Product $product, CartService $cartService): Response
     {
+        $isInCart = $cartService->isInCart($product);
         return $this->render('main/product/show.html.twig', [
             'product' => $product,
+            'isInCart' => $isInCart,
         ]);
     }
 

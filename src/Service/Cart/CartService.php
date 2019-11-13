@@ -1,6 +1,7 @@
 <?php
 namespace App\Service\Cart;
 
+use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -25,6 +26,7 @@ class CartService{
         }
         $this->session->set('cart', $cart);
     }
+
     public function remove(int $id){
         $cart = $this->session->get('cart', []);
         if(!empty($cart[$id])){
@@ -57,5 +59,16 @@ class CartService{
             $total += $totalItem;
         }
         return $total;
+    }
+
+    public function isInCart(Product $product) : bool {
+        $cartWithData=$this->getFullCart();
+
+        foreach ($cartWithData as $item){
+            if($item['product']==$product){
+                return true;
+            }
+        }
+        return false;
     }
 }

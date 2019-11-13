@@ -87,7 +87,6 @@ nav{
     object-fit: scale-down;
     grid-column: 1/span 2;
     grid-row: 1;
-    background: white;
 }
 
 .productName{
