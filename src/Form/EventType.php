@@ -25,19 +25,23 @@ class EventType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('date', DateType::class)
+            ->add('date', DateType::class, [
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy HH:mm',
+
+            ])
             ->add('description', TextareaType::class)
             ->add('image', FileType::class, [
-                'required'=>false,
+                'required'=> false,
                 'data_class'=> null,
                 'constraints'=>[
                     new File([
                         'maxSize'=>'50M',
                         'mimeTypes'=>[
                             'image/png',
-                            'image/jpg'
+                            'image/jpeg',
                         ],
-                        'mimeTypesMessage'=>'Please upload a valid Image Document (heidiPNG / JPG)'
+                        'mimeTypesMessage'=>'Please upload a valid Image Document (PNG / JPG)'
                     ])
                 ]
             ])

@@ -1,4 +1,45 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div id="formName" class="formRow">
+        <p>Nom</p>
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
+    </div>
+    <div id="formDescription" class="formRow">
+        <p>Description</p>
+        {{ form_widget(form.description) }}
+        {{ form_errors(form.description) }}
+    </div>
+    <div id="formImage" class="formRow">
+        <p>Insérez une affiche (optionnel)</p>
+        <div id="dragDropArea" draggable="true"><p id="dragDropText">Glissez-déposez ici</p></div>
+        {{ form_widget(form.image) }}
+        {{ form_errors(form.image) }}
+    </div>
+    <div id="formPrice" class="formRow">
+        <p>Prix : </p>
+        {{ form_widget(form.price) }}
+        <p>€</p>
+        {{ form_errors(form.price) }}
+    </div>
+    <div id="formDate" class="formRow">
+        <p>Date : </p>
+        {{ form_widget(form.date, {'attr': {'placeholder':'dd/MM/yyyy HH:mm'}}) }}
+        {{ form_errors(form.date) }}
+    </div>
+    <div id="formDuration" class="formRow">
+        <p>Durée : </p>
+        {{ form_widget(form.duration) }}
+        {{ form_errors(form.duration) }}
+    </div>
+    <div id="formLocalization" class="formRow">
+        <p>Lieu</p>
+        {{ form_widget(form.localization) }}
+        {{ form_errors(form.localization) }}
+    </div>
+    <div id="formPeriod" class="formRow">
+        <p>Période (récursion) :</p>
+        {{ form_widget(form.period) }}
+        {{ form_errors(form.period) }}
+    </div>
+    <button class="productFormButton">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

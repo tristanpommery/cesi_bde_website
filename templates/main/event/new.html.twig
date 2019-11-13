@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="/assets/main/event/styleEvent.css">
+    <link rel="stylesheet" href="/assets/main/event/styleEventForm.css">
 {% endblock %}
 
 {% block header %}
@@ -15,9 +16,15 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Create new Event</h1>
+    <div id="pageContent">
+        <h2 id="action">Créer un Évènement</h2>
 
-    {{ include('main/event/_form.html.twig') }}
+        {{ include('main/event/_form.html.twig') }}
 
-    <a href="{{ path('event_index') }}">back to list</a>
+        <a class="goBack" href="{{ path('event_index') }}">Retour</a>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/main/event/eventForm.js"></script>
 {% endblock %}

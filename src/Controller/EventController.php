@@ -37,7 +37,6 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $uploadedFile = $form['image']->getData();
-            $newFileName="https://via.placeholder.com/1020x2000";
             if($uploadedFile){
                 $imagePath = '/assets/pictures/events/';
                 $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/events';
@@ -46,9 +45,9 @@ class EventController extends AbstractController
                 $uploadedFile->move(
                     $destination,$newFileName
                 );
+                $event->setImage($newFileName);
             }
 
-            $event->setImage($newFileName);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
