@@ -38,8 +38,4 @@ class CartController extends AbstractController
         $cartService->remove($id);
         return $this->redirectToRoute('product_show', ['id'=>$id]);
     }
-
-
-
-
 }
