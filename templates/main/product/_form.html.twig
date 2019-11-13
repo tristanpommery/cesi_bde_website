@@ -1,0 +1,40 @@
+{{ form_start(form) }}
+    <div id="formName" class="formRow">
+        <p>Nom</p>
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
+    </div>
+    <div id="formDescription" class="formRow">
+        <p>Description</p>
+        {{ form_widget(form.description) }}
+        {{ form_errors(form.description) }}
+    </div>
+    <div id="formImage" class="formRow">
+        <p>Insérez une image</p>
+        <div id="dragDropArea" draggable="true"><p id="dragDropText">Glissez-déposez ici</p></div>
+        {{ form_widget(form.image, {'attr': {'required': 'true'}}) }}
+        {{ form_errors(form.image) }}
+    </div>
+    <div id="formPrice" class="formRow">
+        <p>Prix : </p>
+        {{ form_widget(form.price) }}
+        <p>€</p>
+        {{ form_errors(form.price) }}
+    </div>
+    <div id="formStock" class="formRow">
+        <p>Stock : </p>
+        {{ form_widget(form.stock) }}
+        {{ form_errors(form.stock) }}
+    </div>
+    <div id="formCategory" class="formRow">
+        <p>Catégorie</p>
+        {{ form_widget(form.category) }}
+        {{ form_errors(form.category) }}
+    </div>
+    <div id="formAssociation" class="formRow">
+        <p>Association</p>
+        {{ form_widget(form.association) }}
+        {{ form_errors(form.association) }}
+    </div>
+    <button class="productFormButton">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

@@ -2,29 +2,28 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\EventRepository;
+use App\Repository\ProductRepository;
+use App\Repository\AssociationRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function home()
+    public function home(EventRepository $eventRepository, AssociationRepository $associationRepository, ProductRepository $productRepository)
     {
-        return $this->render('main/home.html.twig');
+        return $this->render('main/home.html.twig', [
+            'events' => $eventRepository->find3firsts(),
+            'associations' => $associationRepository->findAll(),
+            'products' => $productRepository->find3firsts(),
+        ]);
     }
 
     /**
-     * @Route("/about", name="about")
-     */
-    public function about()
-    {
-        return $this->render('main/about.html.twig');
-    }
-
-    /**
-     * @Route("/event", name="allEvents")
+     * @Route("/event", name="all_events")
      */
     public function allEvent()
     {
@@ -52,7 +51,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/association", name="allAssociations")
+     * @Route("/association", name="all_associations")
      */
     public function allAssociations()
     {
@@ -68,4 +67,5 @@ class MainController extends AbstractController
             'id'=>$id,
         ]);
     }
+
 }

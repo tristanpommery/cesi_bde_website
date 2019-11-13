@@ -1,7 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SecurityController!{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block body %}
+    {% block header %}
+        <div id="banner">
+            <div id="bannerText">
+                <i class="fab fa-wordpress"></i>
+                <h1 id="mainTitle">CESI - Strasbourg<br/><span id="bde">Bureau Des Étudiants</span></h1>
+            </div>
+        </div>
+    {% endblock %}
+    <h1>Register</h1>
 
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.firstName) }}
+        {{ form_row(registrationForm.lastName) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.password) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_row(registrationForm.gender) }}
+
+        <button class="btn">Register</button>
+    {{ form_end(registrationForm) }}
 {% endblock %}

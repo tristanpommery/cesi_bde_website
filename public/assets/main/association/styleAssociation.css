@@ -1,0 +1,31 @@
+nav{
+    top: 0px;
+}
+
+#banner{
+    height: 200px;
+    background-color: white;
+    background-image: url("/assets/pictures/bannerAssociation.png");
+    background-size: 150%;
+    background-position: center;
+    display: grid;
+    top: 0px;
+    transition: height 1s, background-size 1s;
+}
+
+#bannerText{
+    color: white;
+    display: block;
+    text-align: center;
+    align-self: center;
+    transition : font-size 1s;
+}
+
+#mainTitle{
+    grid-row: 3;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'roboto-regular';
+    font-size: 4em;
+    
+}

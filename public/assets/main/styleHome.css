@@ -1,0 +1,444 @@
+@font-face{
+    font-family: 'roboto-regular';
+    src: url('/assets/fonts/Roboto-Regular.ttf');
+}
+
+@font-face{
+    font-family: 'roboto-light';
+    src: url('/assets/fonts/Roboto-Light.ttf');
+}
+
+#banner{
+    height: 560px;
+    position: sticky;
+    background-color: white;
+    background-image: url("/assets/pictures/banner.png");
+    background-size: 150%;
+    background-position: center;
+    display: grid;
+    top: 0px;
+    transition: height 1s, background-size 1s;
+}
+
+#bannerText{
+    color: white;
+    display: block;
+    text-align: center;
+    align-self: center;
+    transition : font-size 1s;
+}
+
+.fa-wordpress{
+    grid-row: 2;
+    font-size: 8em;
+    text-align: center;
+    align-self: end;
+}
+
+#mainTitle{
+    grid-row: 3;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'roboto-regular';
+    font-size: 3em;
+    
+}
+
+#bde{
+    font-size: 2em;
+}
+
+#content{
+    background: #8a8d8f;
+    display: grid;
+    grid-template-columns: auto 1200px 40px auto;
+    grid-template-rows: 40px repeat(4, auto) 40px;
+    grid-row-gap: 50px;
+}
+
+#rightBar{
+    background: #161616;
+    grid-column: 3;
+    grid-row: 1/span 6;
+}
+
+#about{
+    grid-row: 2;
+    grid-column: 2;
+    display: grid;
+}
+
+#about > h2{
+    margin: 0;
+    padding: 40px;
+    padding-bottom: 0;
+    grid-row: 1;
+    background: white;
+    font-family: 'roboto-light';
+    font-size: 4em;
+    text-align: end;
+}
+
+#about > p{
+    margin: 0;
+    padding: 40px;
+    padding-top: 20px;
+    grid-row: 2;
+    font-family: 'roboto-light';
+    text-align: justify;
+    font-size: 1.5em;
+    background: white;
+}
+
+#events{
+    grid-row: 3;
+    grid-column: 2;
+    display: grid;
+    background: white;
+}
+
+#events > h2{
+    margin: 0;
+    padding-left: 40px;
+    grid-row: 1;
+    grid-column: 1;
+    background: #161616;
+    color: white;
+    font-family: 'roboto-light';
+    font-size: 4em;
+}
+
+#events > p{
+    margin: 0;
+    grid-row: 1;
+    grid-column: 1;
+    color: white;
+    justify-self: end;
+    align-self: end;
+    font-family: 'roboto-light';
+    font-size: 2em;
+    padding-bottom: 10px;
+}
+
+#eventContent{
+    display: grid;
+    padding: 40px;
+    grid-template-columns: repeat(3, 300px);
+    grid-column-gap: 100px;
+    grid-row-gap: 50px;
+}
+
+.eventCard{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 120px 40px 190px 40px;
+    font-family: 'roboto-light';
+    background: #e9e9e9;
+}
+
+.eventCard > p{
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.eventName{
+    grid-column: 1/span 2;
+    grid-row: 1;
+    padding-top: 10px;
+    font-family: 'roboto-regular';
+    font-size: 1.8em;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+    background: #4e4e4e;
+}
+.eventName:hover{
+    overflow: auto;
+}
+
+.eventDay{
+    grid-column: 1;
+    grid-row: 2;
+    font-size: 1.2em;
+    padding-top: 10px;
+}
+
+.eventHour{
+    grid-column: 2;
+    grid-row: 2;
+    text-align: end;
+    font-size: 1.2em;
+    padding-top: 10px;
+}
+
+.eventDescription{
+    grid-column: 1/span 2;
+    grid-row: 3;
+    border-top: 2px solid #4e4e4e;
+    padding-top: 20px;
+    overflow: hidden;
+}
+.eventDescription:hover{
+    overflow: auto;
+}
+
+.eventPrice{
+    grid-column: 1/span 2;
+    grid-row: 5;
+    font-size: 1.2em;
+    border-top: 2px solid #4e4e4e;
+    padding-top: 10px;
+}
+
+.goToEvent{
+    grid-column: 1/span 2;
+    grid-row: 6;
+    color: white;
+    background: #4e4e4e;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-family: 'roboto-regular';
+    padding-left: 30px;
+    padding-right: 30px;
+    justify-self: center;
+    border: 1px solid #4e4e4e;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    transition: background 0.4s, color 0.4s;
+}
+
+.goToEvent:hover{
+    background: none;
+    color: #4e4e4e;
+}
+
+#eventContent > a{
+    grid-column: 1/span 3;
+    color: #4e4e4e;
+    background: white;
+    border: 1px solid #4e4e4e;
+    border-radius: 5px;
+    text-decoration: none;
+    justify-self: center;
+    font-family: 'roboto-regular';
+    font-size: 2em;
+    padding: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    transition: background 0.4s, color 0.4s;
+}
+
+#eventContent > a:hover{
+    color: white;
+    background: #4e4e4e;
+}
+
+#associations{
+    grid-row: 4;
+    grid-column: 2;
+    display: grid;
+    background: white;
+}
+
+#associations > h2{
+    margin: 0;
+    padding-left: 40px;
+    grid-row: 1;
+    grid-column: 1;
+    background: #161616;
+    color: white;
+    font-family: 'roboto-light';
+    font-size: 4em;
+}
+
+#associationContent{
+    display: grid;
+    padding: 40px;
+    grid-row-gap: 50px;
+}
+
+.associationPanel{
+    justify-self: center;
+    height: 600px;
+    display: grid;
+}
+
+.associationImage{
+    height: 600px;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.associationName{
+    margin: 0;
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+    font-family: 'roboto-regular';
+    font-size: 4em;
+}
+
+#associationContent > a{
+    grid-column: 1;
+    color: #4e4e4e;
+    background: white;
+    border: 1px solid #4e4e4e;
+    border-radius: 5px;
+    text-decoration: none;
+    justify-self: center;
+    font-family: 'roboto-regular';
+    font-size: 2em;
+    padding: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    transition: background 0.4s, color 0.4s;
+}
+
+#associationContent > a:hover{
+    color: white;
+    background: #4e4e4e;
+}
+
+/* -------------------------- */
+
+#shop{
+    grid-row: 5;
+    grid-column: 2;
+    display: grid;
+    background: white;
+}
+
+#shop > h2{
+    margin: 0;
+    padding-left: 40px;
+    grid-row: 1;
+    grid-column: 1;
+    background: #161616;
+    color: white;
+    font-family: 'roboto-light';
+    font-size: 4em;
+}
+
+#shop > p{
+    margin: 0;
+    grid-row: 1;
+    grid-column: 1;
+    color: white;
+    justify-self: end;
+    align-self: end;
+    font-family: 'roboto-light';
+    font-size: 2em;
+    padding-bottom: 10px;
+}
+
+#shopContent{
+    display: grid;
+    padding: 40px;
+    grid-template-columns: repeat(3, 300px);
+    grid-column-gap: 100px;
+    grid-row-gap: 50px;
+}
+
+.shopCard{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 120px 40px;
+    font-family: 'roboto-light';
+    background: #e9e9e9;
+}
+
+.shopCard > p{
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.productImage{
+    margin-top: 20px;
+    justify-self: center;
+    height: 90%;
+    width: 200px;
+    object-fit: cover;
+    grid-column: 1/span 2;
+    grid-row: 1;
+    border: 2px solid black;
+}
+
+.productName{
+    grid-column: 1/span 2;
+    grid-row: 2;
+    font-family: 'roboto-regular';
+    font-size: 1.8em;
+    padding-top: 10px;
+    overflow: hidden;
+    text-align: center;
+    color: #4e4e4e;
+}
+.productName:hover{
+    overflow: auto;
+}
+
+.productPrice{
+    grid-column: 1/span 2;
+    grid-row: 3/span 2;
+    font-size: 1.2em;
+    background: #4e4e4e;
+    color: white;
+    padding-top: 8px;
+}
+
+.productStock{
+    grid-column: 1/span 2;
+    grid-row: 3;
+    font-size: 1.2em;
+    justify-self: end;
+    color: white;
+    padding-top: 8px;
+    z-index: 10;
+}
+
+.goToProduct{
+    grid-column: 1/span 2;
+    grid-row: 4;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-family: 'roboto-regular';
+    padding-left: 30px;
+    padding-right: 30px;
+    justify-self: center;
+    border: 1px solid #e9e9e9;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    transition: background 0.4s, color 0.4s;
+}
+
+.goToProduct:hover{
+    background: #e9e9e9;
+    color: #4e4e4e;
+}
+
+#shopContent > a{
+    grid-column: 1/span 3;
+    color: #4e4e4e;
+    background: white;
+    border: 1px solid #4e4e4e;
+    border-radius: 5px;
+    text-decoration: none;
+    justify-self: center;
+    font-family: 'roboto-regular';
+    font-size: 2em;
+    padding: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    transition: background 0.4s, color 0.4s;
+}
+
+#shopContent > a:hover{
+    color: white;
+    background: #4e4e4e;
+}

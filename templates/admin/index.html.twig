@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shop{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/main/shop/styleShop.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+
+{% endblock %}
+
+{% block header %}
+    <div id="banner">
+        <div id="bannerText">
+            <h1 id="mainTitle">Boutique</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <table id="myTable" class="display" style="width:100%">
+        <tfoot>
+        <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>Campus</th>
+            <th>Gender</th>
+            <th>Association</th>
+            <th>Role</th>
+        </tr>
+        </tfoot>
+        <thead>
+        <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>Campus</th>
+            <th>Gender</th>
+            <th>Association</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+        <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    {% endblock %}
+
+

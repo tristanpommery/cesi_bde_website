@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Product{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/main/shop/styleShop.css">
+    <link rel="stylesheet" href="/assets/main/shop/styleShopForm.css">
+{% endblock %}
+{% block header %}
+    <div id="banner">
+        <div id="bannerText">
+            <h1 id="mainTitle">Boutique</h1>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div id="pageContent">
+        <h2 id="action" >Créer un produit</h2>
+
+        {{ include('main/product/_form.html.twig') }}
+
+        <a href="{{ path('shop') }}">Retour</a>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/main/shop/shopForm.js"></script>
+{% endblock %}
