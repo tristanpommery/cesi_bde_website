@@ -19,9 +19,9 @@
         <div id="sortBar"><p>Trier par</p></div>
         {% for product in products %}
             <div class="shopCard">
-                <img class="productImage" src="https://via.placeholder.com/1020x2000">
+                <img class="productImage" src={{ product.image }}>
                 <p class="productName">{{ product.name }}<p>
-                <p class="productStock">Stock: {{ product.stock }}<p>
+                <p class="productStock">{% if product.stock == 0 %}Rupture de stock{% else %}Stock: {{ product.stock }}{% endif %}<p>
                 <p class="productPrice">Prix: {% if product.price == 0 %}Gratuit{% else %}{{ product.price }} €{% endif %}</p>
                 <a class="goToProduct productButton" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
                 <a class="editProduct productButton" href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>

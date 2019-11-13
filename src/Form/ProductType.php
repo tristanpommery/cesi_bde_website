@@ -33,6 +33,7 @@ class ProductType extends AbstractType implements DataMapperInterface
             ->add('stock', IntegerType::class)
             ->add('image', FileType::class, [
                 'required'=>false,
+                'data_class' => null,
                 'constraints'=> [
                     new File([
                         'mimeTypes'=>[

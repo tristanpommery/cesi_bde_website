@@ -84,10 +84,10 @@ nav{
     justify-self: center;
     height: 90%;
     width: 200px;
-    object-fit: cover;
+    object-fit: scale-down;
     grid-column: 1/span 2;
     grid-row: 1;
-    border: 2px solid black;
+    background: white;
 }
 
 .productName{
@@ -154,7 +154,7 @@ nav{
     font-size: 1em;
     width: 100%;
     text-align: center;
-    background: rgb(29, 82, 255);
+    background: rgb(73, 102, 197);
 }
 
 .deleteProduct{
@@ -163,7 +163,7 @@ nav{
     font-size: 1em;
     width: 100%;
     text-align: center;
-    background: rgb(240, 32, 32);
+    background: rgb(204, 85, 85);
 }
 
 #createNew{

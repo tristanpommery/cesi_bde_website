@@ -1,4 +1,3 @@
-<div id="pageContent">
 {{ form_start(form) }}
     <div id="formName" class="formRow">
         <p>Nom</p>
@@ -12,7 +11,8 @@
     </div>
     <div id="formImage" class="formRow">
         <p>Insérez une image</p>
-        {{ form_widget(form.image) }}
+        <div id="dragDropArea" draggable="true"><p id="dragDropText">Glissez-déposez ici</p></div>
+        {{ form_widget(form.image, {'attr': {'required': 'true'}}) }}
         {{ form_errors(form.image) }}
     </div>
     <div id="formPrice" class="formRow">
@@ -36,6 +36,5 @@
         {{ form_widget(form.association) }}
         {{ form_errors(form.association) }}
     </div>
-    <button class="productFormButton">{{ button_label|default('Save') }}</button>
+    <button class="productFormButton">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
-</div>

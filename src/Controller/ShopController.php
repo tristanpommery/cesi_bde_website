@@ -39,18 +39,18 @@ class ShopController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-              $imagePath = '/assets/pictures/products/';
               $uploadedFile= $form['image']->getData();
-              $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/products';
-              $originalFileName = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-              $newFileName = uniqid().'.'.$uploadedFile->guessExtension();
+              $newFileName="https://via.placeholder.com/1020x2000";
+              if($uploadedFile){
+                $imagePath = '/assets/pictures/products/';
+                $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/products';
+                $newFileName = $imagePath.uniqid().'.'.$uploadedFile->guessExtension();
 
-              $uploadedFile->move(
-                  $destination,$newFileName
-              );
-
-              $product->setImage($newFileName);
-
+                $uploadedFile->move(
+                    $destination,$newFileName
+                );
+              }
+                $product->setImage($newFileName);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->flush();
