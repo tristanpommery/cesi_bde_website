@@ -13,7 +13,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -30,7 +29,7 @@ class EventType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('image', FileType::class, [
                 'required'=>false,
-                'dataclass'=> null,
+                'data_class'=> null,
                 'constraints'=>[
                     new File([
                         'maxSize'=>'50M',
