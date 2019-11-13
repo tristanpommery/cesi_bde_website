@@ -181,3 +181,15 @@ nav{
 #cesiLogo a:hover{
     background: none;
 }
+
+#footer{
+    height: 200px;
+    background: #161616;
+}
+
+#footer > p{
+    margin: 0;
+    color: white;
+    font-family: 'roboto-regular';
+    font-size: 3em;
+}

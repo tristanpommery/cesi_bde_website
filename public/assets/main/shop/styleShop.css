@@ -1,3 +1,13 @@
+@font-face{
+    font-family: 'roboto-regular';
+    src: url('/assets/fonts/Roboto-Regular.ttf');
+}
+
+@font-face{
+    font-family: 'roboto-light';
+    src: url('/assets/fonts/Roboto-Light.ttf');
+}
+
 nav{
     top: 0px;
 }
@@ -27,4 +37,152 @@ nav{
     padding: 0px;
     font-family: 'roboto-regular';
     font-size: 4em;
+}
+
+.shop{
+    background: white;
+    margin: 100px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    grid-column-gap: 60px;
+    grid-row-gap: 50px;
+}
+
+#sortBar{
+    grid-column: 1/span 5;
+    grid-row: 1;
+}
+
+#sortBar > p{
+    margin: 0;
+    padding-left: 40px;
+    grid-row: 1;
+    grid-column: 1;
+    background: #161616;
+    color: white;
+    font-family: 'roboto-light';
+    font-size: 3em;
+}
+
+.shopCard{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 120px 40px;
+    font-family: 'roboto-light';
+    background: #e9e9e9;
+}
+
+.shopCard > p{
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.productImage{
+    margin-top: 20px;
+    justify-self: center;
+    height: 90%;
+    width: 200px;
+    object-fit: scale-down;
+    grid-column: 1/span 2;
+    grid-row: 1;
+    background: white;
+}
+
+.productName{
+    grid-column: 1/span 2;
+    grid-row: 2;
+    font-family: 'roboto-regular';
+    font-size: 1.8em;
+    padding-top: 10px;
+    overflow: hidden;
+    text-align: center;
+    color: #4e4e4e;
+}
+.productName:hover{
+    overflow: auto;
+}
+
+.productPrice{
+    grid-column: 1/span 2;
+    grid-row: 3/span 3;
+    font-size: 1.2em;
+    background: #4e4e4e;
+    color: white;
+    padding-top: 8px;
+}
+
+.productStock{
+    grid-column: 1/span 2;
+    grid-row: 3;
+    font-size: 1.2em;
+    justify-self: end;
+    color: white;
+    padding-top: 8px;
+    z-index: 10;
+}
+
+.productButton{
+    color: white;
+    text-decoration: none;
+    font-family: 'roboto-regular';
+}
+
+.goToProduct{
+    grid-column: 1/span 2;
+    grid-row: 4;
+    border: 1px solid #e9e9e9;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 1.5em;
+    justify-self: center;
+    transition: background 0.4s, color 0.4s;
+}
+
+.goToProduct:hover{
+    background: #e9e9e9;
+    color: #4e4e4e;
+}
+
+.editProduct{
+    grid-column: 1;
+    grid-row: 5;
+    font-size: 1em;
+    width: 100%;
+    text-align: center;
+    background: rgb(73, 102, 197);
+}
+
+.deleteProduct{
+    grid-column: 2;
+    grid-row: 5;
+    font-size: 1em;
+    width: 100%;
+    text-align: center;
+    background: rgb(204, 85, 85);
+}
+
+#createNew{
+    height: 100%;
+    background: rgb(37, 176, 240);
+    display: grid;
+    color: white;
+    text-decoration: none;
+    transition: background 0.4s;
+}
+
+#createNew:hover{
+    background: rgb(37, 108, 240);
+}
+
+#createNew > p{
+    align-self: center;
+    justify-self: center;
+    margin: 0;
+    font-size: 10em;
+    font-family: 'roboto-regular';
 }

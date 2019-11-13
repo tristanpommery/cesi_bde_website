@@ -3,6 +3,7 @@
 {% block title %}New Product{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="/assets/main/shop/styleShop.css">
+    <link rel="stylesheet" href="/assets/main/shop/styleShopForm.css">
 {% endblock %}
 {% block header %}
     <div id="banner">
@@ -12,9 +13,15 @@
     </div>
 {% endblock %}
 {% block body %}
-    <h1>Create new Product</h1>
+    <div id="pageContent">
+        <h2 id="action" >Créer un produit</h2>
 
-    {{ include('main/product/_form.html.twig') }}
+        {{ include('main/product/_form.html.twig') }}
 
-    <a href="{{ path('shop') }}">back to list</a>
+        <a href="{{ path('shop') }}">Retour</a>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/main/shop/shopForm.js"></script>
 {% endblock %}
