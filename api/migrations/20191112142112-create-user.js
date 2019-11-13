@@ -16,7 +16,7 @@ module.exports = {
           key: 'id'
         }*/
       },
-       promotionId: {
+      promotionId: {
         allowNull: false,
         type: Sequelize.INTEGER
         /*references: {

@@ -23,7 +23,7 @@ module.exports = {
                         done(null, campusFound);
                     })
                     .catch(function (err) {
-                        return res.status(500).json({ 'error': 'unable to verify user' });
+                        return res.status(500).json({ 'error': 'unable to verify campus' });
                     });
             },
             function (campusFound, done) {
@@ -44,15 +44,15 @@ module.exports = {
             }]);
     },
     getCampus: function (req, res) {
-        // Getting auth header
+
         var campusName = req.body.id;
 
         if (campusName == null)
             return res.status(400).json({ 'error': 'invalid parameters' });
 
         models.campus.findOne({
-            where: { id: campusName },
-            attributes: ['id', 'name']
+            attributes: ['id', 'name'],
+            where: { id: campusName }
         }).then(function (campus) {
             if (campus) {
                 res.status(201).json(campus);
