@@ -3,14 +3,6 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    {% block header %}
-        <div id="banner">
-            <div id="bannerText">
-                <i class="fab fa-wordpress"></i>
-                <h1 id="mainTitle">CESI - Strasbourg<br/><span id="bde">Bureau Des Étudiants</span></h1>
-            </div>
-        </div>
-    {% endblock %}
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -18,7 +10,7 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
 
