@@ -97,7 +97,7 @@ class ShopController extends AbstractController
                 $uploadedFile->move(
                     $destination,$newFileName
                 );
-              }
+            }
             $product->setImage($newFileName);
             $this->getDoctrine()->getManager()->flush();
 
