@@ -18,9 +18,11 @@ class GalleryType extends AbstractType
     {
         $builder
             ->add('image', FileType::class, [
+                'data_class'=> null,
                 'required'=>false,
                 'constraints' =>[
                     new File([
+                        'maxSize'=>'50M',
                         'mimeTypes'=>[
                             'image/png',
                             'image/jpg'

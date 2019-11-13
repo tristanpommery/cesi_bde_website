@@ -36,6 +36,19 @@ class AssociationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFile= $form['image']->getData();
+            $newFileName="https://via.placeholder.com/1020x2000";
+            if($uploadedFile){
+                $imagePath = '/assets/pictures/associations/';
+                $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/associations';
+                $newFileName = $imagePath.uniqid().'.'.$uploadedFile->guessExtension();
+
+                $uploadedFile->move(
+                    $destination,$newFileName
+                );
+            }
+            $association->setImage($newFileName);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($association);
             $entityManager->flush();
@@ -58,6 +71,20 @@ class AssociationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $uploadedFile= $form['image']->getData();
+            $newFileName="https://via.placeholder.com/1020x2000";
+            if($uploadedFile){
+                $imagePath = '/assets/pictures/products/';
+                $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/products';
+                $newFileName = $imagePath.uniqid().'.'.$uploadedFile->guessExtension();
+
+                $uploadedFile->move(
+                    $destination,$newFileName
+                );
+            }
+            $association->setImage($newFileName);
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('association_index');

@@ -17,14 +17,16 @@ class AssociationType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('Description', TextareaType::class)
+            ->add('description', TextareaType::class)
             ->add('image', FileType::class, [
+                'data_class'=> null,
                 'required'=>false,
                 'constraints'=>[
                     new File([
+                        'maxSize'=> '50M',
                         'mimeTypes'=>[
                             'image/png',
-                            'image /jpg'
+                            'image/jpg'
                         ],
                         'mimeTypesMessaqe'=>'Please upload a valid Image format (PNG / JPG)'
                     ])
