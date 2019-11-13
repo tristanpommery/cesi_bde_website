@@ -21,10 +21,7 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
+### Node modules ###
+/node_modules/
 
-###> uploader ignoring ###
 /public/assets/pictures/products/
-/public/assets/pictures/associations/
-/public/assets/pictures/events/
-/public/assets/pictures/gallery/
-###< uploader ignoring ###

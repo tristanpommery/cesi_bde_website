@@ -10,8 +10,6 @@ use App\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,14 +29,13 @@ class ProductType extends AbstractType implements DataMapperInterface
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('price', NumberType::class)
+            ->add('price', IntegerType::class)
             ->add('stock', IntegerType::class)
             ->add('image', FileType::class, [
                 'required'=>false,
                 'data_class' => null,
                 'constraints'=> [
                     new File([
-                        'maxSize'=>'50M',
                         'mimeTypes'=>[
                             'image/png',
                             'image/jpg'

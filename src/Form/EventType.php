@@ -9,8 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,19 +25,17 @@ class EventType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('image', FileType::class, [
                 'required'=>false,
-                'dataclass'=> null,
                 'constraints'=>[
                     new File([
-                        'maxSize'=>'50M',
                         'mimeTypes'=>[
                             'image/png',
                             'image/jpg'
                         ],
-                        'mimeTypesMessage'=>'Please upload a valid Image Document (heidiPNG / JPG)'
+                        'mimeTypesMessage'=>'Please upload a valid Image Document (PNG / JPG)'
                     ])
                 ]
             ])
-            ->add('price', NumberType::class)
+            ->add('price', IntegerType::class)
             ->add('duration', DateIntervalType::class)
             ->add('period', TextType::class)
             ->add('fakeUsers')
