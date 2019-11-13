@@ -28,11 +28,12 @@
     transition : font-size 1s;
 }
 
-#bannerText >i{
+#logoBde{
+    width: 180px;
     grid-row: 2;
-    font-size: 8em;
     text-align: center;
     align-self: end;
+    transition : width 1s;
 }
 
 #mainTitle{
