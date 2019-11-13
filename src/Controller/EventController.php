@@ -35,6 +35,19 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $uploadedFile = $form['image']->getData();
+            if($uploadedFile){
+                $imagePath = '/assets/pictures/events/';
+                $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/events';
+                $newFileName = $imagePath.uniqid().'.'.$uploadedFile->guessExtension();
+
+                $uploadedFile->move(
+                    $destination,$newFileName
+                );
+                $event->setImage($newFileName);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
@@ -67,6 +80,19 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFile= $form['image']->getData();
+            $newFileName="https://via.placeholder.com/1020x2000";
+            if($uploadedFile){
+                $imagePath = '/assets/pictures/products/';
+                $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/products';
+                $newFileName = $imagePath.uniqid().'.'.$uploadedFile->guessExtension();
+
+                $uploadedFile->move(
+                    $destination,$newFileName
+                );
+            }
+            $event->setImage($newFileName);
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('event_index');

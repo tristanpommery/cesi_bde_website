@@ -30,10 +30,14 @@ class Gallery
     private $event;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\FakeUser", inversedBy="galleries")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="galleries")
      */
-    private $fakeUser;
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -64,14 +68,30 @@ class Gallery
         return $this;
     }
 
-    public function getFakeUser(): ?FakeUser
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
     {
-        return $this->fakeUser;
+        return $this->users;
     }
 
-    public function setFakeUser(?FakeUser $fakeUser): self
+    public function addUser(User $user): self
     {
-        $this->fakeUser = $fakeUser;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addGallery($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeGallery($this);
+        }
 
         return $this;
     }

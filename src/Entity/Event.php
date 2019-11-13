@@ -44,7 +44,7 @@ class Event
     private $price;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $duration;
 
@@ -64,16 +64,21 @@ class Event
     private $comments;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\FakeUser", mappedBy="events")
+     * @ORM\Column(type="string", length=255)
      */
-    private $fakeUsers;
+    private $localization;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="events")
+     */
+    private $users;
 
 
     public function __construct()
     {
         $this->galleries = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->fakeUsers = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -141,12 +146,12 @@ class Event
         return $this;
     }
 
-    public function getDuration(): ?\DateTimeInterface
+    public function getDuration(): ?string
     {
         return $this->duration;
     }
 
-    public function setDuration(\DateTimeInterface $duration): self
+    public function setDuration(?string $duration): self
     {
         $this->duration = $duration;
 
@@ -227,33 +232,43 @@ class Event
         return $this;
     }
 
+    public function getLocalization(): ?string
+    {
+        return $this->localization;
+    }
+
+    public function setLocalization(string $localization): self
+    {
+        $this->localization = $localization;
+
+        return $this;
+    }
+
     /**
-     * @return Collection|FakeUser[]
+     * @return Collection|User[]
      */
-    public function getFakeUsers(): Collection
+    public function getUsers(): Collection
     {
-        return $this->fakeUsers;
+        return $this->users;
     }
 
-    public function addFakeUser(FakeUser $fakeUser): self
+    public function addUser(User $user): self
     {
-        if (!$this->fakeUsers->contains($fakeUser)) {
-            $this->fakeUsers[] = $fakeUser;
-            $fakeUser->addEvent($this);
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addEvent($this);
         }
 
         return $this;
     }
 
-    public function removeFakeUser(FakeUser $fakeUser): self
+    public function removeUser(User $user): self
     {
-        if ($this->fakeUsers->contains($fakeUser)) {
-            $this->fakeUsers->removeElement($fakeUser);
-            $fakeUser->removeEvent($this);
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeEvent($this);
         }
 
         return $this;
     }
-
-
 }
