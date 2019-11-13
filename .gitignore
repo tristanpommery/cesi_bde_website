@@ -24,4 +24,7 @@
 
 ###> uploader ignoring ###
 /public/assets/pictures/products/
+/public/assets/pictures/associations/
+/public/assets/pictures/events/
+/public/assets/pictures/gallery/
 ###< uploader ignoring ###
