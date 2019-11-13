@@ -1,4 +1,7 @@
 security:
+
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory: { memory: null }
@@ -24,6 +27,11 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+
+    role_hierarchy:
+        ROLE_BDE_MEMBER : ROLE_USER
+        ROLE_PERSONNEL : ROLE_USER
+
     access_control:
-        #- { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_BDE_MEMBER }
+        - { path: ^/user/{id}, roles: ROLE_PERSONNEL, ROLE_USER }
