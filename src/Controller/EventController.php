@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/event")
@@ -66,9 +67,47 @@ class EventController extends AbstractController
      */
     public function show(Event $event): Response
     {
+        $user = $this->getUser();
+        if ($event->getUsers()->contains($user)) {
+            $isParticipating = true;
+        } else {
+            $isParticipating = false;
+        }
+
         return $this->render('main/event/show.html.twig', [
             'event' => $event,
+            'isParticipating' => $isParticipating,
         ]);
+    }
+
+    /**
+     * @Route ("/apply/{id}", name="event_apply")
+     */
+    public function add(Event $event, ObjectManager $manager): Response
+    {
+        $user = $this->getUser();
+        if($user) {
+            $user->addEvent($event);
+            $manager->persist($user);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('event_show', ['id'=>$event->getId()]);
+    }
+
+    /**
+     * @Route("/disapply/{id}", name="event_disapply")
+     */
+    public function remove(Event $event, ObjectManager $manager): Response
+    {
+        $user = $this->getUser();
+        if($user) {
+            $user->removeEvent($event);
+            $manager->persist($user);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('event_show', ['id'=>$event->getId()]);
     }
 
     /**
