@@ -15,37 +15,24 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Association index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<div id="content">
+    <div class="association">
         {% for association in associations %}
-            <tr>
-                <td>{{ association.id }}</td>
-                <td>{{ association.name }}</td>
-                <td>{{ association.Description }}</td>
-                <td>{{ association.image }}</td>
-                <td>
-                    <a href="{{ path('association_show', {'id': association.id}) }}">show</a>
-                    <a href="{{ path('association_edit', {'id': association.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
+            <div class="associationCard">
+                <img class="associationImage" src={{ association.image }} alt="associationImage">
+                <p class="associationName">{{ association.name }}</p>
+                <p class="associationDescription">{{ association.description }}</p>
+                {% if is_granted('ROLE_BDE') %}
+                <a class="editAssociation associationButton" href="{{ path('association_edit', {'id': association.id}) }}">Modifier</a>
+                <a class="deleteAssociation associationButton" href="{{ path('association_delete', {'id': association.id}) }}">Supprimer</a>
+                {% endif %}
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('association_new') }}">Create new</a>
+        {% if is_granted('ROLE_BDE') %}
+        <a id="createNew" href="{{ path('association_new') }}">
+            <p>+</p>
+        </a>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

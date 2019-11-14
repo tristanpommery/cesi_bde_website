@@ -10,6 +10,13 @@ var server = express();
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
+//Configure CORS
+server.use(function(request, response, next) {
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 //Configure routes
 server.get('/', function(req,res) {
     res.setHeader('Content-Type', 'text/html');

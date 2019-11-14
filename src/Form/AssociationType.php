@@ -28,11 +28,10 @@ class AssociationType extends AbstractType
                             'image/png',
                             'image/jpg'
                         ],
-                        'mimeTypesMessaqe'=>'Please upload a valid Image format (PNG / JPG)'
+                        'mimeTypesMessage'=>'Please upload a valid Image format (PNG / JPG)'
                     ])
                 ]
             ])
-            ->add('fakeUsers')
         ;
     }
 
