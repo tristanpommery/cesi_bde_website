@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}BDE CESI Strasbourg{% endblock %}</title>
@@ -9,22 +9,22 @@
     <body>
         {% block header %}{% endblock %}
         <nav id="nav">
-            <lu id="navList">
-                <li class="navElement" id="search">
-                    <form action="">
+            <div id="navList">
+                <div class="navElement" id="search">
+                    <form>
                         <input type="text" placeholder="Recherche">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>
-                </li>
+                </div>
                 {% if app.user %}
-                <li class="navElement" id="profile"><a href="{{ path('user', {'id': app.user.id}) }}">{{ app.user.firstName }}</a></li>
-                <li class="navElement" id="logout"><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                <div class="navElement" id="profile"><a href="{{ path('user', {'id': app.user.id}) }}">{{ app.user.firstName }}</a></div>
+                <div class="navElement" id="logout"><a href="{{ path('app_logout') }}">Déconnexion</a></div>
                 {% else %}
-                <li class="navElement" id="signup"><a href="{{ path('signup') }}">S'inscrire</a></li>
-                <li class="navElement" id="login"><a href="{{ path('app_login') }}">Connexion</a></li>
+                <div class="navElement" id="signup"><a href="{{ path('signup') }}">S'inscrire</a></div>
+                <div class="navElement" id="login"><a href="{{ path('app_login') }}">Connexion</a></div>
                 {% endif %}
-                <li class="navElement" id="cart"><a href="{{ path('cart') }}"><i class="fas fa-shopping-cart"></i></a></li>
-            </lu>
+                <div class="navElement" id="cart"><a href="{{ path('cart') }}"><i class="fas fa-shopping-cart"></i></a></div>
+            </div>
         </nav>
         <i class="fas fa-bars" id="menuIcon"></i>
         <div id="sideMenu">
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="menuElement" id="cesiLogo">
-                <a href="https://www.cesi.fr/"><img src="/assets/pictures/logo-CESI-neg.png"></a>
+                <a href="https://www.cesi.fr/"><img src="/assets/pictures/logo-CESI-neg.png" alt="logo CESI"></a>
             </div>
         </div>
         {% block body %}{% endblock %}
@@ -52,7 +52,7 @@
         {% endblock %}
         <script src="https://kit.fontawesome.com/f7c32aec99.js" crossorigin="anonymous"></script>
         <script src="/assets/base.js"></script>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         {% block javascripts %}
         {% endblock %}
     </body>

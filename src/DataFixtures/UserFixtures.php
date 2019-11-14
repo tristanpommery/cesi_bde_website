@@ -35,7 +35,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 ->setImage($faker->imageUrl(300, 300))
                 ->setPromotion($this->getReference($promotionTag))
                 ->setCampus($this->getReference($campusTag))
-                ->setAssociation($this->getReference($associationTag))
+                ->setAssociations($this->getReference($associationTag))
             ;
 
             $tag = "user-" . $i;

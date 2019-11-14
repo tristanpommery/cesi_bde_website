@@ -122,6 +122,7 @@
 #event > form{
     grid-column: 4;
     grid-row: 6;
+    justify-self: center;
 }
 
 #event > form > button{
@@ -157,6 +158,7 @@
     text-align: center;
     font-family: 'roboto-regular';
     transition: background 0.4s;
+    justify-self: center;
 }
 
 #editEvent:hover{
@@ -168,6 +170,7 @@
     grid-row: 6;
     justify-self: start;
     text-decoration: none;
+    justify-self: center;
     color: white;
     width: 100px;
     padding-top: 10px;
