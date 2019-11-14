@@ -2,33 +2,23 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Entity\Gallery;
 use App\Form\GalleryType;
 use App\Repository\GalleryRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-/**
- * @Route("/gallery")
- */
+
 class GalleryController extends AbstractController
 {
     /**
-     * @Route("/", name="gallery_index", methods={"GET"})
+     * @Route("/event/{id}/gallery", name="gallery_event")
      */
-    public function index(GalleryRepository $galleryRepository): Response
-    {
-        return $this->render('main/gallery/index.html.twig', [
-            'galleries' => $galleryRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="gallery_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
+    public function eventGallery(Event $event, Request $request, ObjectManager $manager)
     {
         $gallery = new Gallery();
         $form = $this->createForm(GalleryType::class, $gallery);
@@ -36,84 +26,44 @@ class GalleryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $uploadedFile= $form['image']->getData();
-            $newFileName="https://via.placeholder.com/1020x2000";
-            if($uploadedFile){
+            $uploadedFile = $form['image']->getData();
+            $newFileName = "https://via.placeholder.com/1020x2000";
+            if ($uploadedFile) {
                 $imagePath = '/assets/pictures/gallery/';
-                $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/gallery';
-                $newFileName = $imagePath.uniqid().'.'.$uploadedFile->guessExtension();
+                $destination = $this->getParameter('kernel.project_dir') . '/public/assets/pictures/gallery';
+                $newFileName = $imagePath . uniqid() . '.' . $uploadedFile->guessExtension();
 
                 $uploadedFile->move(
-                    $destination,$newFileName
+                    $destination,
+                    $newFileName
                 );
             }
             $gallery->setImage($newFileName);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($gallery);
-            $entityManager->flush();
+            $gallery->setEvent($event);
+            $gallery->setAuthor($this->getUser());
+            $manager->persist($gallery);
+            $manager->flush();
 
-            return $this->redirectToRoute('gallery_index');
+            return $this->redirectToRoute('gallery_event', ['id' => $event->getId()]);
         }
 
-        return $this->render('main/gallery/new.html.twig', [
-            'gallery' => $gallery,
+        return $this->render('main/gallery/index.html.twig', [
+            'event' => $event,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="gallery_show", methods={"GET"})
+     * @Route("/event/{yeet}/gallery/{id}/remove", name="gallery_delete")
      */
-    public function show(Gallery $gallery): Response
+    public function delete(Gallery $gallery, Request $request, ObjectManager $manager): Response
     {
-        return $this->render('main/gallery/show.html.twig', [
-            'gallery' => $gallery,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="gallery_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Gallery $gallery): Response
-    {
-        $form = $this->createForm(GalleryType::class, $gallery);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedFile= $form['image']->getData();
-            $newFileName="https://via.placeholder.com/1020x2000";
-            if($uploadedFile){
-                $imagePath = '/assets/pictures/products/';
-                $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/products';
-                $newFileName = $imagePath.uniqid().'.'.$uploadedFile->guessExtension();
-
-                $uploadedFile->move(
-                    $destination,$newFileName
-                );
-            }
-            $gallery->setImage($newFileName);
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('gallery_index');
+        $event = $gallery->getEvent();
+        if ($this->isCsrfTokenValid('delete' . $gallery->getId(), $request->request->get('_token'))) {
+            $manager->remove($gallery);
+            $manager->flush();
         }
 
-        return $this->render('main/gallery/edit.html.twig', [
-            'gallery' => $gallery,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="gallery_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Gallery $gallery): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$gallery->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($gallery);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('gallery_index');
+        return $this->redirectToRoute('gallery_event', ['id' => $event->getId()]);
     }
 }

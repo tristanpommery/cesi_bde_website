@@ -24,8 +24,8 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
             ;
 
             if(rand(0, 1) === 1) {
-                $eventTag = "event-" . rand(0, 9);
-                $comment->setEvent($this->getReference($eventTag));
+                $galleryTag = "gallery-" . rand(0, 29);
+                $comment->setGallery($this->getReference($galleryTag));
             } else {
                 $productTag = "product-" . rand(0, 14);
                 $comment->setProduct($this->getReference($productTag));
@@ -41,7 +41,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
     {
         return array(
             UserFixtures::class,
-            EventFixtures::class,
+            GalleryFixtures::class,
             ProductFixtures::class,
         );
     }
