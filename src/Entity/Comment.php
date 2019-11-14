@@ -27,11 +27,6 @@ class Comment
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="comments")
-     */
-    private $event;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="comments")
      */
     private $product;
@@ -41,6 +36,11 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Gallery", inversedBy="comments")
+     */
+    private $gallery;
 
     public function getId(): ?int
     {
@@ -71,18 +71,6 @@ class Comment
         return $this;
     }
 
-    public function getEvent(): ?Event
-    {
-        return $this->event;
-    }
-
-    public function setEvent(?Event $event): self
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
     public function getProduct(): ?Product
     {
         return $this->product;
@@ -103,6 +91,18 @@ class Comment
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getGallery(): ?Gallery
+    {
+        return $this->gallery;
+    }
+
+    public function setGallery(?Gallery $gallery): self
+    {
+        $this->gallery = $gallery;
 
         return $this;
     }

@@ -17,9 +17,11 @@ class GalleryFixtures extends Fixture implements DependentFixtureInterface
         for($i=0; $i<30; $i++) {
             $gallery = new Gallery();
             $eventTag = "event-" . rand(0, 9);
+            $authorTag = "user-" . rand(0, 9);
             $gallery
                 ->setImage($faker->imageUrl())
                 ->setEvent($this->getReference($eventTag))
+                ->setAuthor($this->getReference($authorTag))
             ;
 
             for($j=0; $j<rand(0, 5); $j++) {
@@ -27,6 +29,8 @@ class GalleryFixtures extends Fixture implements DependentFixtureInterface
                 $gallery->addUser($this->getReference($userTag));
             }
 
+            $tag = 'gallery-' . $i;
+            $this->addReference($tag, $gallery);
             $manager->persist($gallery);
         }
 
