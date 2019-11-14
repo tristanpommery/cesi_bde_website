@@ -2,6 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
     promotion_id: DataTypes.INTEGER,
+    campus_id: DataTypes.INTEGER,
     email: DataTypes.STRING,
     roles: DataTypes.STRING,
     password: DataTypes.STRING,
@@ -18,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
   user.associate = function(models) {
     // associations can be defined here
     models.user.hasMany(models.user_event);
+
+    models.user.belongsTo(models.campus);
+
+    models.user.belongsTo(models.promotion);
+
   };
   return user;
 };

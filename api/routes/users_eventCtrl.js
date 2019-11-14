@@ -47,7 +47,6 @@ module.exports = {
                 attributes: ['id', 'first_name', 'last_name', 'genre', 'email']
             }      
         ],
-            underscored: true,
             attributes: ['event_id','user_id']
         }).then(function (user) {
             if (user) {
