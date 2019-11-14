@@ -4,6 +4,7 @@ var usersCtrl = require('./routes/usersCtrl');
 var promotionCtrl = require('./routes/promotionCtrl');
 var campusCtrl = require('./routes/campusCtrl');
 var users_eventCtrl = require('./routes/users_eventCtrl');
+var users_galleryCtrl = require('./routes/users_galleryCtrl');
 
 // Router
 exports.router = (function() {
@@ -22,6 +23,9 @@ exports.router = (function() {
     apiRouter.route('/users/:param').delete(usersCtrl.deleteUser);
     apiRouter.route('/ajax').get(users_eventCtrl.getUser);
     apiRouter.route('/ajax/:param').get(users_eventCtrl.getUserProfile);
+    apiRouter.route('/gallery/:param').get(users_galleryCtrl.getUserProfile);
+    apiRouter.route('/gallery').get(users_galleryCtrl.getUser);
+    apiRouter.route('/like').post(users_galleryCtrl.Like);
 
     return apiRouter;
 })();

@@ -1,6 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
+    association_id: DataTypes.INTEGER,
     promotion_id: DataTypes.INTEGER,
     campus_id: DataTypes.INTEGER,
     email: DataTypes.STRING,
@@ -23,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     models.user.belongsTo(models.campus);
 
     models.user.belongsTo(models.promotion);
+
+    models.user.belongsTo(models.association);
 
   };
   return user;
