@@ -55,5 +55,10 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         {% block javascripts %}
         {% endblock %}
+        <script type="text/javascript" id="cookiebanner"
+            src="https://cdn.jsdelivr.net/gh/dobarkod/cookie-banner@1.2.2/dist/cookiebanner.min.js"
+            data-position="top" data-linkmsg="En savoir plus" data-moreinfo="{{ path('legal') }}"
+            data-message="Nous utilisons des cookies pour améliorer votre expérience de navigation.">
+        </script>
     </body>
 </html>
