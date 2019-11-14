@@ -11,8 +11,8 @@
         <nav id="nav">
             <div id="navList">
                 <div class="navElement" id="search">
-                    <form>
-                        <input type="text" placeholder="Recherche">
+                    <form action={{ path('search') }}>
+                        <input name="keyword" type="text" placeholder="Recherche">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </div>

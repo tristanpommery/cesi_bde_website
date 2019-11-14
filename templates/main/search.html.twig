@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Galerie{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="\assets\main\styleSearch.css">
+{% endblock %}
+
+
+{% block header %}
+    <div id="banner">
+        <div id="bannerText">
+            <h1 id="mainTitle">Recherche</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <h2>Résultats de recherche pour "{{ keyword }}"</h2>
+
+    {% if eventsCount == 0 %}
+        <h3>Produit: aucun résulat trouvé</h3>
+    {% elseif eventsCount == 1 %}
+        <h3>Produit: un seul résulat trouvé</h3>
+    {% else %}
+        <h3>Produit: {{ eventsCount }} résulats trouvés</h3>
+    {% endif %}
+    {% for event in events %}
+        <div>
+            <a href="{{ path('event_show', {'id': event.id}) }}">{{ event.name }}</a>
+        </div>
+    {% endfor %}
+
+    {% if productsCount == 0 %}
+        <h3>Evénements: aucun résulat trouvé</h3>
+    {% elseif productsCount == 1 %}
+        <h3>Evénements: un seul résulat trouvé</h3>
+    {% else %}
+        <h3>Evénements: {{ productsCount }} résulats trouvés</h3>
+    {% endif %}
+    {% for product in products %}
+        <div>
+            <a href="{{ path('product_show', {'id': product.id}) }}">{{ product.name }}</a>
+        </div>
+    {% endfor %}
+
+    {% if associationsCount == 0 %}
+        <h3>Associations: aucun résulat trouvé</h3>
+    {% elseif associationsCount == 1 %}
+        <h3>Associations: un seul résulat trouvé</h3>
+    {% else %}
+        <h3>Associations: {{ associationsCount }} résulats trouvés</h3>
+    {% endif %}
+    {% for association in associations %}
+        <div>
+            <a href="{{ path('all_associations') }}">{{ association.name }}</a>
+        </div>
+    {% endfor %}
+{% endblock %}
