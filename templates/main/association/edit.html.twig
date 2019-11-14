@@ -2,12 +2,29 @@
 
 {% block title %}Edit Association{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/main/association/styleAssociation.css">
+    <link rel="stylesheet" href="/assets/main/association/styleAssociationForm.css">
+{% endblock %}
+
+{% block header %}
+    <div id="banner">
+        <div id="bannerText">
+            <h1 id="mainTitle">Associations</h1>
+        </div>
+    </div>
+{% endblock %}
+
 {% block body %}
-    <h1>Edit Association</h1>
+    <div id="pageContent">
+        <h2 id="action">Modifier une Association</h2>
 
-    {{ include('main/association/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('main/association/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('association_index') }}">back to list</a>
+        <a class="goBack" href="{{ path('association_index') }}">Retour</a>
+    </div>
+{% endblock %}
 
-    {{ include('main/association/_delete_form.html.twig') }}
+{% block javascripts %}
+    <script src="/assets/main/association/associationForm.js"></script>
 {% endblock %}

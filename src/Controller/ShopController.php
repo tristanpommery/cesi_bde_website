@@ -53,6 +53,7 @@ class ShopController extends AbstractController
                 );
             }
             $product->setImage($newFileName);
+            $product->setsoldCount(0);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->flush();

@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}New Association{% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="/assets/main/association/styleAssociation.css">
+    <link rel="stylesheet" href="/assets/main/association/styleAssociationForm.css">
 {% endblock %}
 
 {% block header %}
@@ -12,10 +14,17 @@
         </div>
     </div>
 {% endblock %}
+
 {% block body %}
-    <h1>Create new Association</h1>
+    <div id="pageContent">
+        <h2 id="action">Créer une Association</h2>
 
-    {{ include('main/association/_form.html.twig') }}
+        {{ include('main/association/_form.html.twig') }}
 
-    <a href="{{ path('association_index') }}">back to list</a>
+        <a class="goBack" href="{{ path('association_index') }}">Retour</a>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/main/association/associationForm.js"></script>
 {% endblock %}
