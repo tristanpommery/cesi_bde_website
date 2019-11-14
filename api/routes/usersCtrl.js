@@ -413,11 +413,11 @@ module.exports = {
     },
     getUser: function (req, res) {
         // Getting auth header
-        var headerAuth = req.headers['authorization'];
+       /* var headerAuth = req.headers['authorization'];
         var userRole = jwtUtils.getUserRole(headerAuth);
 
         if (userRole !== "admin")
-            return res.status(400).json({ 'error': 'wrong token or not admin' });
+            return res.status(400).json({ 'error': 'wrong token or not admin' });*/
 
         models.user.findAll({ 
             include: [{

@@ -52,7 +52,9 @@
     {% else %}
         <p>Your cart is empty</p>
     {% endif %}
-
+    <div>
+        <a href="{{ path('checkout') }}">Confirmer la commande</a>
+    </div>
 {% endblock %}
 {% block javascripts %}
     <script src="/assets/main/home.js"></script>
