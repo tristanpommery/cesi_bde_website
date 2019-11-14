@@ -221,12 +221,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAssociation(): ?Association
+    public function getAssociations(): ?Association
     {
-        return $this->associations;
+        return $this->association;
     }
 
-    public function setAssociation(Association $association): self
+    public function setAssociations(Association $association): self
     {
         $this->association = $association;
 

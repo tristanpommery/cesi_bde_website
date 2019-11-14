@@ -31,7 +31,7 @@
             <a id="apply" href="#">Participer</a>
             {% endif %}
             {% if event.image %}
-            <img id="eventImage" src={{ event.image }}>
+            <img id="eventImage" src={{ event.image }} alt="eventImage">
             {% endif %}
 
             {% if is_granted('ROLE_BDE') %}
