@@ -13,7 +13,7 @@ module.exports = {
             }
             models.user_event.findAll({
                 where: {
-                    userId: param
+                    user_id: param
                 },
                 include: [{
                     model: models.user,
@@ -21,7 +21,7 @@ module.exports = {
                 },
                 {
                     model: models.event,
-                    attributes: ['id', 'name', 'description', 'price', 'localization']
+                    attributes: ['id', 'name', 'localization']
                 }
                 ],
                 attributes: ['user_id', 'event_id'],
