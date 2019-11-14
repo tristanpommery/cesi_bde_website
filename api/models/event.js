@@ -9,7 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER,
     duration: DataTypes.STRING,
     localization: DataTypes.STRING
-  }, { underscored: true });
+  }, {
+      timestamps: false,
+      underscored: true,
+      freezeTableName: true,
+      tableName: 'event'
+  });
   event.associate = function(models) {
     // associations can be defined here
     models.user.hasMany(models.user_event);
