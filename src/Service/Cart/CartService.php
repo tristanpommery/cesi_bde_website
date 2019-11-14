@@ -19,7 +19,7 @@ class CartService{
         $this->productRepository=$productRepository;
     }
 
-    public function add(int $id /*, Request $request*/)
+    public function add(int $id)
     {
 
         //$value = $request->cookies->get('cart');
@@ -86,5 +86,6 @@ class CartService{
         }
         return false;
     }
+
 }
 
