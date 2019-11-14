@@ -19,7 +19,7 @@ nav{
 #navList{
     display:grid;
     grid-template-rows: auto;
-    grid-template-columns: auto 200px 200px;
+    grid-template-columns: auto 200px 200px 80px;
 }
 
 .navElement a{
@@ -50,6 +50,10 @@ nav{
     list-style: none;
     display:grid;
     height: 50px;
+}
+
+#cart{
+    font-size: 1.5em;
 }
 
 #search{
