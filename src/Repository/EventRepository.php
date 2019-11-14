@@ -35,6 +35,17 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByKeyWord(String $keyword): array
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.name LIKE :keyword')
+            ->orWhere('e.description LIKE :keyword')
+            ->setParameter('keyword', '%'.$keyword.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /*
     public function findOneBySomeField($value): ?Event
     {

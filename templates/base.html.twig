@@ -11,8 +11,8 @@
         <nav id="nav">
             <div id="navList">
                 <div class="navElement" id="search">
-                    <form>
-                        <input type="text" placeholder="Recherche">
+                    <form action={{ path('search') }}>
+                        <input name="keyword" type="text" placeholder="Recherche">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
@@ -32,6 +32,9 @@
             <div class="menuElement" id="eventsLink"><a href="{{ path('event_index') }}">Évènements</a></div>
             <div class="menuElement" id="associationsLink"><a href="{{ path('association_index') }}">Associations</a></div>
             <div class="menuElement" id="shopLink"><a href="{{ path('shop') }}">Boutique</a></div>
+            {% if is_granted('ROLE_BDE') %}
+            <div class="menuElement" id="adminLink"><a href="{{ path('admin_users') }}">Admin</a></div>
+            {% endif %}
             <div class="menuElement" id="networks">
                 <div class="socialNetworks">
                     <a href="https://www.facebook.com/BDECESISTRAS/"><i class="fab fa-facebook-square"></i></a>
@@ -55,5 +58,10 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         {% block javascripts %}
         {% endblock %}
+        <script type="text/javascript" id="cookiebanner"
+            src="https://cdn.jsdelivr.net/gh/dobarkod/cookie-banner@1.2.2/dist/cookiebanner.min.js"
+            data-position="top" data-linkmsg="En savoir plus" data-moreinfo="{{ path('legal') }}"
+            data-message="Nous utilisons des cookies pour améliorer votre expérience de navigation.">
+        </script>
     </body>
 </html>

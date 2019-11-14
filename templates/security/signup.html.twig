@@ -65,7 +65,12 @@
                 {{ form_widget(registrationForm.associations) }}
                 {{ form_errors(registrationForm.associations) }}
             </div>
-            <button class="registrationFormButton">{{ button_label|default('S\'inscrire') }}</button>
+            <div id="terms" class="formRow">
+                <input type="checkbox" id="termsCheckbox">
+                <label for="horns">J'accepte les <a href="{{ path('legal') }}">conditions générales</a> du site.</label>
+            </div>
+            <div class="registrationFormButton" id="notChecked">S'inscrire</div>
+            <button class="registrationFormButton" id="checked">{{ button_label|default('S\'inscrire') }}</button>
         {{ form_end(registrationForm) }}
     </div>
 {% endblock %}

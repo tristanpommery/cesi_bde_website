@@ -19,6 +19,16 @@ class AssociationRepository extends ServiceEntityRepository
         parent::__construct($registry, Association::class);
     }
 
+    public function findByKeyWord(String $keyword): array
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.name LIKE :keyword')
+            ->orWhere('a.description LIKE :keyword')
+            ->setParameter('keyword', '%' . $keyword . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Association[] Returns an array of Association objects
     //  */
