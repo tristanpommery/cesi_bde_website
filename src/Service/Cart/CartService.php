@@ -3,6 +3,9 @@ namespace App\Service\Cart;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService{
@@ -16,15 +19,27 @@ class CartService{
         $this->productRepository=$productRepository;
     }
 
-    public function add(int $id){
+    public function add(int $id)
+    {
+
+        //$value = $request->cookies->get('cart');
         $cart = $this->session->get('cart', []);
 
-        if (!empty($cart[$id])){
+       /* if ($value !== null) {
+            $cart = json_decode($value, true);
+        }*/
+
+        if (!empty($cart[$id])) {
             $cart[$id]++;
         } else {
-            $cart[$id]=1;
+            $cart[$id] = 1;
         }
+        //$cookie = new Cookie('cart', json_encode($cart), (time() + 365 * 24 * 60 * 60));
         $this->session->set('cart', $cart);
+
+        /*$res = new Response();
+        $res->headers->setCookie($cookie);
+        $res->send();*/
     }
 
     public function remove(int $id){
@@ -71,4 +86,6 @@ class CartService{
         }
         return false;
     }
+
 }
+

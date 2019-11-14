@@ -56,7 +56,8 @@ class User implements UserInterface
     private $image;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Association", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Association", inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $associations;
 
@@ -89,7 +90,6 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->associations = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->galleries = new ArrayCollection();
         $this->comments = new ArrayCollection();
@@ -221,28 +221,14 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Association[]
-     */
-    public function getAssociations(): Collection
+    public function getAssociations(): ?Association
     {
         return $this->associations;
     }
 
-    public function addAssociation(Association $association): self
+    public function setAssociations(Association $association): self
     {
-        if (!$this->associations->contains($association)) {
-            $this->associations[] = $association;
-        }
-
-        return $this;
-    }
-
-    public function removeAssociation(Association $association): self
-    {
-        if ($this->associations->contains($association)) {
-            $this->associations->removeElement($association);
-        }
+        $this->associations = $association;
 
         return $this;
     }

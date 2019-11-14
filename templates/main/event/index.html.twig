@@ -15,43 +15,26 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Event index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>Duration</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="event">
+        <div id="sortBar"><p>Trier par</p></div>
         {% for event in events %}
-            <tr>
-                <td>{{ event.id }}</td>
-                <td>{{ event.name }}</td>
-                <td>{{ event.date ? event.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ event.description }}</td>
-                <td>{{ event.image }}</td>
-                <td>{{ event.price }}</td>
-                <td>{{ event.duration }}</td>
-                <td>
-                    <a href="{{ path('event_show', {'id': event.id}) }}">show</a>
-                    <a href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
+            <div class="eventCard">
+                <p class="eventName">{{ event.name }}</p>
+                <p class="eventDay">Le {{ event.date|date('d/m/Y') }}</p>
+                <p class="eventHour">à {{ event.date|date('H:i') }}</p>
+                <p class="eventDescription">{{ event.description }}</p>
+                <p class="eventPrice">Prix: {% if event.price == 0 %}Gratuit{% else %}{{ event.price }} €{% endif %}</p>
+                <a class="goToEvent" href="{{ path('event_show', {'id': event.id}) }}">Voir</a>
+                {% if is_granted('ROLE_BDE') %}
+                <a class="editEvent eventButton" href="{{ path('event_edit', {'id': event.id}) }}">Modifier</a>
+                <a class="deleteEvent eventButton" href="{{ path('event_delete', {'id': event.id}) }}">Supprimer</a>
+                {% endif %}
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('event_new') }}">Create new</a>
+        {% if is_granted('ROLE_BDE') %}
+        <a id="createNew" href="{{ path('event_new') }}">
+            <p>+</p>
+        </a>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -29,6 +29,19 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
+            $uploadedFile = $form['image']->getData();
+            $newFileName = '/assets/pictures/users/default.png';
+
+            if($uploadedFile){
+                $imagePath = '/assets/pictures/users/';
+                $destination = $this->getParameter('kernel.project_dir').'/public/assets/pictures/users';
+                $newFileName = $imagePath.uniqid().'.'.$uploadedFile->guessExtension();
+
+                $uploadedFile->move(
+                    $destination,$newFileName
+                );
+                $user->setImage($newFileName);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
