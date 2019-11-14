@@ -26,9 +26,7 @@ class ProductRepository extends ServiceEntityRepository
     public function find3firsts()
     {
         return $this->createQueryBuilder('p')
-            /*->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)*/
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('p.soldCount', 'DESC')
             ->setMaxResults(3)
             ->getQuery()
             ->getResult()
