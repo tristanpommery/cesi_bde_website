@@ -33,6 +33,16 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByKeyWord(String $keyword): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.name LIKE :keyword')
+            ->orWhere('p.description LIKE :keyword')
+            ->setParameter('keyword', '%' . $keyword . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
     /*
     public function findOneBySomeField($value): ?Product
     {

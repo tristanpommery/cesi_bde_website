@@ -19,7 +19,9 @@
             <img id="productImage" src={{ product.image }}>
             <p id="productName">{{ product.name }}</p>
             <p id="productCategory">Catégorie: {{ product.category.name }}</p>
-            <p id="productAssociation">Association: {{ product.association.name }}</p>
+            {% if product.association %}
+                <p id="productAssociation">Association: {{ product.association.name }}</p>
+            {% endif %}
             <p id="productStock">{% if product.stock == 0 %}Rupture de stock{% else %}Stock: {{ product.stock }}{% endif %}</p>
             <p id="productPrice">Prix: {% if product.price == 0 %}Gratuit{% elseif product.price == 0.5 %}Fifty cents{% else %}{{ product.price }} €{% endif %}</p>
             <p id="productDescription">{{ product.description }}</p>

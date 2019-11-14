@@ -8,6 +8,10 @@ body{
     padding: 0px;
 }
 
+a{
+    outline: none;
+}
+
 nav{
     background-color: #161616;
     position: sticky;
@@ -113,7 +117,7 @@ nav{
     top: 0px;
     transition: left 0.5s;
     display: grid;
-    grid-template-rows: repeat(5, 50px) auto 50px 100px;
+    grid-template-rows: repeat(6, 50px) auto 50px 100px;
 }
 
 .menuElement > a{
@@ -142,6 +146,10 @@ nav{
     grid-row: 5;
 }
 
+#adminLink{
+    grid-row: 6;
+}
+
 .menuElement{
     display: grid;
     font-family: 'roboto-regular';
@@ -149,7 +157,7 @@ nav{
 }
 
 #networks{
-    grid-row: 7;
+    grid-row: 8;
     border-bottom: 2px solid white;
 }
 
@@ -167,7 +175,7 @@ nav{
 }
 
 #cesiLogo{
-    grid-row: 8;
+    grid-row: 9;
     display: grid;
 }
 
