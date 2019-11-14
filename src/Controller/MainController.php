@@ -68,4 +68,11 @@ class MainController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/legal", name="legal")
+     */
+    public function legal()
+    {
+        return $this->render('main/legal.html.twig');
+    }
 }
