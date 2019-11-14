@@ -59,7 +59,7 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\Association", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $associations;
+    private $association;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="users")
@@ -88,11 +88,17 @@ class User implements UserInterface
      */
     private $campus;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Gallery", mappedBy="author", orphanRemoval=true)
+     */
+    private $posts;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
         $this->galleries = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     /**
@@ -223,12 +229,12 @@ class User implements UserInterface
 
     public function getAssociations(): ?Association
     {
-        return $this->associations;
+        return $this->association;
     }
 
     public function setAssociations(Association $association): self
     {
-        $this->associations = $association;
+        $this->association = $association;
 
         return $this;
     }
@@ -336,6 +342,37 @@ class User implements UserInterface
     public function setCampus(?Campus $campus): self
     {
         $this->campus = $campus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gallery[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Gallery $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Gallery $post): self
+    {
+        if ($this->posts->contains($post)) {
+            $this->posts->removeElement($post);
+            // set the owning side to null (unless already changed)
+            if ($post->getAuthor() === $this) {
+                $post->setAuthor(null);
+            }
+        }
 
         return $this;
     }

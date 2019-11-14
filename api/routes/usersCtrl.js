@@ -232,19 +232,28 @@ module.exports = {
     getUserProfile: function (req, res) {
 
         var param = req.params.param;
-        var headerAuth = req.headers['authorization'];
+        /*var headerAuth = req.headers['authorization'];
         var userRole = jwtUtils.getUserRole(headerAuth);
         var userId = jwtUtils.getUserId(headerAuth);
 
         if (userRole == "admin") {
             if (param == null) {
                 return res.status(400).json({ 'error': 'invalid parameters' });
-            }
+            }*/
 
             if (!EMAIL_REGEX.test(param)) {
 
                 models.user.findOne({
-                    attributes: ['id', 'email', 'first_name', 'last_name', 'roles', 'image'],
+                    include: [{
+                        model: models.campus,
+                        attributes: ['name']
+                    },
+                    {
+                        model: models.promotion,
+                        attributes: ['name']
+                    }
+                    ],
+                    attributes: ['id', 'first_name', 'last_name', 'genre', 'email', 'roles', 'image', 'promotion_id', 'campus_id'],
                     where: { id: param }
                 }).then(function (user) {
                     if (user) {
@@ -256,9 +265,17 @@ module.exports = {
                     res.status(500).json({ 'error': 'cannot fetch user' });
                 });
             } else {
-
                 models.user.findOne({
-                    attributes: ['id', 'email', 'first_name', 'last_name', 'roles', 'image'],
+                    include: [{
+                        model: models.campus,
+                        attributes: ['name']
+                    },
+                    {
+                        model: models.promotion,
+                        attributes: ['name']
+                    }
+                    ],
+                    attributes: ['id', 'first_name', 'last_name', 'genre', 'email', 'roles', 'image', 'promotion_id', 'campus_id'],
                     where: { email: param }
                 }).then(function (user) {
                     if (user) {
@@ -270,7 +287,7 @@ module.exports = {
                     res.status(500).json({ 'error': 'cannot fetch user' });
                 });
             }
-        } else {
+        /*} else {
             models.user.findOne({
                 attributes: ['id', 'email', 'first_name', 'last_name', 'roles', 'image'],
                 where: { id: userId }
@@ -282,9 +299,7 @@ module.exports = {
                 }
             }).catch(function (err) {
                 res.status(500).json({ 'error': 'cannot fetch user' });
-            }); 
-        }
-            
+            }); */            
            
     },
     updateUser: function (req, res) {
@@ -413,10 +428,10 @@ module.exports = {
     },
     getUser: function (req, res) {
         // Getting auth header
-       /* var headerAuth = req.headers['authorization'];
-        var userRole = jwtUtils.getUserRole(headerAuth);
+        /*var headerAuth = req.headers['authorization'];
+        var userRole = jwtUtils.getUserRole(headerAuth);*/
 
-        if (userRole !== "admin")
+        /*if (userRole !== "admin")
             return res.status(400).json({ 'error': 'wrong token or not admin' });*/
 
         models.user.findAll({ 
@@ -429,7 +444,7 @@ module.exports = {
                     attributes: ['name']
                 }
             ],
-            attributes: ['id', 'first_name', 'last_name', 'genre', 'email', 'roles']
+            attributes: ['id', 'first_name', 'last_name', 'genre', 'email', 'roles', 'image', 'promotion_id', 'campus_id']
         }).then(function (user) {
             if (user) {
                 res.status(201).json(user);

@@ -44,7 +44,7 @@ class Association
     private $event;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="associations")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="association")
      */
     private $users;
 

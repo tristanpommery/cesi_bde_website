@@ -28,10 +28,14 @@
             <p id="eventParticipations">Participants:</p>
             <p id="eventDescription">{{ event.description }}</p>
             {% if app.user %}
-            <a id="apply" href="#">Participer</a>
+            {% if isParticipating %}
+                <a id="disapply" href="{{ path('event_disapply', {'id': event.id}) }}">Ne plus participer</a>
+            {% else %}
+                <a id="apply" href="{{ path('event_apply', {'id': event.id}) }}">Participer</a>
+            {% endif %}
             {% endif %}
             {% if event.image %}
-            <img id="eventImage" src={{ event.image }}>
+            <img id="eventImage" src={{ event.image }} alt="eventImage">
             {% endif %}
 
             {% if is_granted('ROLE_BDE') %}

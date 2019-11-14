@@ -3,6 +3,7 @@ var express = require('express');
 var usersCtrl = require('./routes/usersCtrl');
 var promotionCtrl = require('./routes/promotionCtrl');
 var campusCtrl = require('./routes/campusCtrl');
+var users_eventCtrl = require('./routes/users_eventCtrl');
 
 // Router
 exports.router = (function() {
@@ -19,6 +20,8 @@ exports.router = (function() {
     apiRouter.route('/users').get(usersCtrl.getUser);
     apiRouter.route('/users/:param').put(usersCtrl.updateUser);
     apiRouter.route('/users/:param').delete(usersCtrl.deleteUser);
+    apiRouter.route('/ajax').get(users_eventCtrl.getUser);
+    apiRouter.route('/ajax/:param').get(users_eventCtrl.getUserProfile);
 
     return apiRouter;
 })();
