@@ -1,7 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const event = sequelize.define('event', {
-    period_id: DataTypes.INTEGER,
+    period_id: {
+      type: DataTypes.INTEGER,
+      references: 'period',
+      referencesKey: 'id'
+    },
     name: DataTypes.STRING,
     date: DataTypes.DATE,
     description: DataTypes.STRING,
@@ -17,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
   });
   event.associate = function(models) {
     // associations can be defined here
-    models.user.hasMany(models.user_event);
+    models.event.hasMany(models.user_event, { onDelete: 'CASCADE' });
+
+    models.event.belongsTo(models.period);
   };
   return event;
 };
