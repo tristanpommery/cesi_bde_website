@@ -21,7 +21,7 @@
             <p id="productCategory">Catégorie: {{ product.category.name }}</p>
             <p id="productAssociation">Association: {{ product.association.name }}</p>
             <p id="productStock">{% if product.stock == 0 %}Rupture de stock{% else %}Stock: {{ product.stock }}{% endif %}</p>
-            <p id="productPrice">Prix: {% if product.price == 0 %}Gratuit{% else %}{{ product.price }} €{% endif %}</p>
+            <p id="productPrice">Prix: {% if product.price == 0 %}Gratuit{% elseif product.price == 0.5 %}Fifty cents{% else %}{{ product.price }} €{% endif %}</p>
             <p id="productDescription">{{ product.description }}</p>
             {% if product.stock == 0 %}
                 <img class="cartButton" title="En rupture de stock!" src="/assets/icons/cart-cross-solid.svg" width="60" sandbox></img>
@@ -36,8 +36,10 @@
                     </a>
                 {% endif %}
             {% endif %}
-            <a id="editProduct" href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>
-            {{ include('main/product/_delete_form.html.twig') }}
+            {% if is_granted('ROLE_BDE') %}
+                <a id="editProduct" href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>
+                {{ include('main/product/_delete_form.html.twig') }}
+            {% endif %}
         </div>
         <a class="goBack" href="{{ path('shop') }}">Retour</a>
     </div>

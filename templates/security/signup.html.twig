@@ -2,27 +2,74 @@
 
 {% block title %}Register{% endblock %}
 
-{% block body %}
-    {% block header %}
-        <div id="banner">
-            <div id="bannerText">
-                <i class="fab fa-wordpress"></i>
-                <h1 id="mainTitle">CESI - Strasbourg<br/><span id="bde">Bureau Des Étudiants</span></h1>
-            </div>
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/security/styleSecurity.css">
+    <link rel="stylesheet" href="/assets/security/styleRegistration.css">
+{% endblock %}
+
+{% block header %}
+    <div id="banner">
+        <div id="bannerText">
+            <h1 id="mainTitle">Sécurité</h1>
         </div>
-    {% endblock %}
-    <h1>Register</h1>
+    </div>
+{% endblock %}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.firstName) }}
-        {{ form_row(registrationForm.lastName) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.password) }}
-        {{ form_row(registrationForm.promotion) }}
-        {{ form_row(registrationForm.campus) }}
-        {{ form_row(registrationForm.genre) }}
-        {{ form_row(registrationForm.image) }}
+{% block body %}
+    <div id="pageContent">
+        <h2 id="action">Inscription</h2>
+        {{ form_start(registrationForm) }}
+            <div id="formFirstName" class="formRow">
+                <p>Prénom</p>
+                {{ form_widget(registrationForm.firstName) }}
+                {{ form_errors(registrationForm.firstName) }}
+            </div>
+            <div id="formLastName" class="formRow">
+                <p>Nom</p>
+                {{ form_widget(registrationForm.lastName) }}
+                {{ form_errors(registrationForm.lastName) }}
+            </div>
+            <div id="formImage" class="formRow">
+                <p>Photo de Profil</p>
+                <div id="dragDropArea" draggable="true"><p id="dragDropText">Glissez-déposez ici</p></div>
+                {{ form_widget(registrationForm.image, {'attr': {'required': 'false'}}) }}
+                {{ form_errors(registrationForm.image) }}
+            </div>
+            <div id="formEmail" class="formRow">
+                <p>Email</p>
+                {{ form_widget(registrationForm.email) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+            <div id="formPassword" class="formRow">
+                <p>Mot de passe</p>
+                {{ form_widget(registrationForm.password) }}
+                {{ form_errors(registrationForm.password) }}
+            </div>
+            <div id="formPromotion" class="formRow">
+                <p>Promotion</p>
+                {{ form_widget(registrationForm.promotion) }}
+                {{ form_errors(registrationForm.promotion) }}
+            </div>
+            <div id="formCampus" class="formRow">
+                <p>Campus</p>
+                {{ form_widget(registrationForm.campus) }}
+                {{ form_errors(registrationForm.campus) }}
+            </div>
+            <div id="formGender" class="formRow">
+                <p>Genre</p>
+                {{ form_widget(registrationForm.genre) }}
+                {{ form_errors(registrationForm.genre) }}
+            </div>
+            <div id="formAssociation" class="formRow">
+                <p>Association</p>
+                {{ form_widget(registrationForm.associations) }}
+                {{ form_errors(registrationForm.associations) }}
+            </div>
+            <button class="registrationFormButton">{{ button_label|default('S\'inscrire') }}</button>
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}
 
-        <button class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+{% block javascripts %}
+    <script src="/assets/security/registration.js"></script>
 {% endblock %}

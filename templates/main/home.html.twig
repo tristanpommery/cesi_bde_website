@@ -59,8 +59,8 @@
                 {% for product in products %}
                     <div class="shopCard">
                         <img class="productImage" src={{ product.image }}>
-                        <p class="productName">{{ product.name }}<p>
-                        <p class="productStock">{% if product.stock == 0 %}Rupture de stock{% else %}Stock: {{ product.stock }}{% endif %}<p>
+                        <p class="productName">{{ product.name }}</p>
+                        <p class="productStock">{% if product.stock == 0 %}Rupture de stock{% else %}Stock: {{ product.stock }}{% endif %}</p>
                         <p class="productPrice">Prix: {% if product.price == 0 %}Gratuit{% else %}{{ product.price }} €{% endif %}</p>
                         <a class="goToProduct" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
                     </div>

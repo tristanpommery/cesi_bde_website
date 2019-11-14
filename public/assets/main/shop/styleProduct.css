@@ -46,7 +46,7 @@
     height: 400px;
     width: 400px;
     object-fit: scale-down;
-    outline: 2px solid #4e4e4e;
+    /*outline: 2px solid #4e4e4e;*/
     grid-row: 1/span 4;
     grid-column: 1; 
 }

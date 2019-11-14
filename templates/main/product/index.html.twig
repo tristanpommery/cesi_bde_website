@@ -24,12 +24,16 @@
                 <p class="productStock">{% if product.stock == 0 %}Rupture de stock{% else %}Stock: {{ product.stock }}{% endif %}<p>
                 <p class="productPrice">Prix: {% if product.price == 0 %}Gratuit{% else %}{{ product.price }} €{% endif %}</p>
                 <a class="goToProduct productButton" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
+                {% if is_granted('ROLE_BDE') %}
                 <a class="editProduct productButton" href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>
                 <a class="deleteProduct productButton" href="{{ path('product_delete', {'id': product.id}) }}">Supprimer</a>
+                {% endif %}
             </div>
         {% endfor %}
+        {% if is_granted('ROLE_BDE') %}
         <a id="createNew" href="{{ path('product_new') }}">
             <p>+</p>
         </a>
+        {% endif %}
     </div>
 {% endblock %}
