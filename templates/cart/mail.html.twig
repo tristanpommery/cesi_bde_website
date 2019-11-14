@@ -1,0 +1,43 @@
+{% block header %}
+    <div id="banner">
+        <div id="bannerText">
+            <i class="fab fa-wordpress"></i>
+            <h1 id="mainTitle">BDE<br/><span id="bde">Confirmation de commande</span></h1>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div>
+        <h1>Récapitulatif Commande</h1>
+    </div>
+    {% if items | length > 0%}
+        <table>
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.product.price }} €</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price * item.quantity }} €</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3">Total : </td>
+                <td>{{ total }} €</td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+    {% endif %}
+{% endblock %}

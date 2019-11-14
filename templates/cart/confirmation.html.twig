@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <h1>Votre commande a bien été passée {{ app.user.firstName }}</h1>
+
+    <h2>Elle sera bientôt traitée par un des membres du BDE</h2>
+
+    <a href="{{ path('home') }}">Retour au menu</a>
+{% endblock %}
