@@ -8,21 +8,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      campusId: {
+      promotion_id: {
         allowNull: false,
         type: Sequelize.INTEGER
-        /*references: {
-          model: 'campuses',
-          key: 'id'
-        }*/
       },
-      promotionId: {
+      email: {
         allowNull: false,
-        type: Sequelize.INTEGER
-        /*references: {
-          model: 'promotions',
-          key: 'id'
-    }*/
+        type: Sequelize.STRING
+      },
+      roles: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      password: {
+        allowNull: false,
+        type: Sequelize.STRING
       },
       first_name: {
         allowNull: false,
@@ -33,24 +33,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       genre: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      email: {
-        allowNull: false,
-        secondaryKey: true,
-        type: Sequelize.STRING
-      },
-      password: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      roles: {
         allowNull: true,
         type: Sequelize.STRING
       },
       image: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {
