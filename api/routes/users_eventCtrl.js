@@ -11,7 +11,6 @@ module.exports = {
             if (param == null) {
                 return res.status(400).json({ 'error': 'invalid parameters' });
             }
-
             models.user_event.findAll({
                 where: {
                     userId: param
@@ -25,7 +24,7 @@ module.exports = {
                     attributes: ['id', 'name', 'description', 'price', 'localization']
                 }
                 ],
-                attributes: ['userId', 'eventId'],
+                attributes: ['user_id', 'event_id'],
                 
             }).then(function (user) {
                 if (user) {
@@ -48,7 +47,8 @@ module.exports = {
                 attributes: ['id', 'first_name', 'last_name', 'genre', 'email']
             }      
         ],
-            attributes: ['eventId','userId']
+            underscored: true,
+            attributes: ['event_id','user_id']
         }).then(function (user) {
             if (user) {
                 res.status(201).json(user);
