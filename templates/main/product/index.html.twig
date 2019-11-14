@@ -19,7 +19,7 @@
         <div id="sortBar"><p>Trier par</p></div>
         {% for product in products %}
             <div class="shopCard">
-                <img class="productImage" src={{ product.image }}>
+                <img class="productImage" src={{ product.image }} alt="productImage">
                 <p class="productName">{{ product.name }}<p>
                 <p class="productStock">{% if product.stock == 0 %}Rupture de stock{% else %}Stock: {{ product.stock }}{% endif %}<p>
                 <p class="productPrice">Prix: {% if product.price == 0 %}Gratuit{% else %}{{ product.price }} €{% endif %}</p>
