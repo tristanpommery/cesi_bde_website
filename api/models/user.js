@@ -1,19 +1,18 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
+    promotion_id: DataTypes.INTEGER,
+    email: DataTypes.STRING,
+    roles: DataTypes.STRING,
+    password: DataTypes.STRING,
     first_name: DataTypes.STRING,
     last_name: DataTypes.STRING,
     genre: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    roles: DataTypes.STRING,
     image: DataTypes.STRING
   }, {});
   user.associate = function(models) {
     // associations can be defined here
-    models.user.belongsTo(models.campus);
-
-    models.user.belongsTo(models.promotion);
+    models.user.hasMany(models.user_event);
   };
   return user;
 };
