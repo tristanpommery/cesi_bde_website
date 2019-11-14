@@ -2,11 +2,14 @@
 namespace App\Service\Cart;
 
 use App\Entity\Product;
+use App\Entity\User;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Twig\Environment;
 
 class CartService
@@ -56,8 +59,9 @@ class CartService
                 unset($cart[$id]);
             }
         }
-        $this->session->set('cart', $cart);
+
         $cookie = new Cookie('cartCookie', json_encode($cart), time() + (7 * 24 * 60 * 60));
+        $this->session->set('cart', $cart);
         $res = new Response();
         $res->headers->setCookie($cookie);
         $res->send();
@@ -86,7 +90,6 @@ class CartService
     {
         $total = 0;
         $cartWithData = $this->getFullCart();
-        dd($cartWithData);
         foreach ($cartWithData as $item) {
             $totalItem = $item['product']->getPrice() * $item['quantity'];
             $total += $totalItem;
@@ -106,35 +109,28 @@ class CartService
         return false;
     }
 
-    public function checkout(\Swift_Mailer $mailer, Environment $renderer, Request $request)
+    public function checkout(\Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em, UserInterface $user)
     {
-        $message = (new \Swift_Message(
-            'Récapitulatif de commande pour :'))
-            ->setFrom('noreply@bde-cesi-st.fr')
-            ->setTo('tristan.pommery@viacesi.fr')
-            ->setBody(
-                $renderer->render('cart/mail.html.twig', [
-                    'items' => $cartWithData = $this->getFullCart(),
-                    'total' => $total = $this->getTotal()
-                ]),
-                'text/html'
-            );
+        $members = $em->getRepository(User::class)->findByRole('ROLE_BDE');
+        dd($members);
+        if ($members) {
+            foreach ($members as $member){
+                $message = (new \Swift_Message('Récapitulatif commande'))
+                    ->setFrom('noreply@bde-cesi-st.fr')
+                    ->setTo($member->getEmail())
+                    ->setBody(
+                        $renderer->render('cart/mail.html.twig', [
+                            'items' => $cartWithData = $this->getFullCart(),
+                            'total' => $total = $this->getTotal()
+                        ]),
+                        'text/html'
+                    );
+                $mailer->send($message);
 
-       /* $cart = $this->session->get('cart', []);
-        $value = $request->cookies->get('cartCookie');
-        /*if ($value !== null){
-            $cart = [];
-            if ($cart == null){
-                unset($cart);
             }
-        }*/
-
-       /* $this->session->set('cart', $cart);
-        $cookie = new Cookie('cartCookie', json_encode($cart), time()+7*24*60*60);
-        $res = new Response();
-        $res->headers->setCookie($cookie);
-        $res->send();
-        $mailer->send($message);*/
+        }
+        unset($_COOKIE['cartCookie']);
+        setcookie('cartCookie', null, -1, '/');
     }
 }
 
