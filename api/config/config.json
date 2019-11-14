@@ -5,19 +5,5 @@
     "database": "database_development_ajax",
     "host": "127.0.0.1",
     "dialect": "mysql"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test_ajax",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production_ajax",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
   }
 }
