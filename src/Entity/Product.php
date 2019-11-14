@@ -59,6 +59,11 @@ class Product
      */
     private $association;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $soldCount;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -180,6 +185,18 @@ class Product
     public function setAssociation(?Association $association): self
     {
         $this->association = $association;
+
+        return $this;
+    }
+
+    public function getSoldCount(): ?int
+    {
+        return $this->soldCount;
+    }
+
+    public function setSoldCount(int $soldCount): self
+    {
+        $this->soldCount = $soldCount;
 
         return $this;
     }

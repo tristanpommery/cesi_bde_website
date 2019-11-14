@@ -59,7 +59,7 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\Association", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $associations;
+    private $association;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Event", inversedBy="users")
@@ -221,14 +221,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAssociations(): ?Association
+    public function getAssociation(): ?Association
     {
         return $this->associations;
     }
 
-    public function setAssociations(Association $association): self
+    public function setAssociation(Association $association): self
     {
-        $this->associations = $association;
+        $this->association = $association;
 
         return $this;
     }
