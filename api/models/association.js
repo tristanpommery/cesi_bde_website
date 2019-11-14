@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     association.associate = function (models) {
         // associations can be defined here
-        models.association.hasMany(models.user);
+        models.association.hasMany(models.user, { onDelete: 'CASCADE' });
     };
     return association;
 };

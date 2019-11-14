@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   campus.associate = function(models) {
     // associations can be defined here
-    models.campus.hasMany(models.user);
+    models.campus.hasMany(models.user, { onDelete: 'CASCADE' });
   };
   return campus;
 };

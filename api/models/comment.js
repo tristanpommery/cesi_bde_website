@@ -1,6 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const user_gallery = sequelize.define('user_gallery', {
+    const comment = sequelize.define('comment', {
+        product_id: DataTypes.INTEGER,
         user_id: {
             type: DataTypes.INTEGER,
             references: 'user',
@@ -10,20 +11,20 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             references: 'gallery',
             referencesKey: 'id'
-        }
+        },
+        content: DataTypes.STRING,
+        created_at: DataTypes.DATE
     }, {
         timestamps: false,
         underscored: true,
         freezeTableName: true,
-        tableName: 'user_gallery'
+        tableName: 'comment'
     });
-    user_gallery.removeAttribute('id');
-    user_gallery.associate = function (models) {
+    comment.associate = function (models) {
         // associations can be defined here
+        models.comment.belongsTo(models.user);
 
-        models.user.belongsToMany(models.gallery, { through: models.user_gallery, onDelete: 'CASCADE', hooks: true})
-        models.gallery.belongsToMany(models.user, { through: models.user_gallery, onDelete: 'CASCADE', hooks: true})
-        
+        models.comment.belongsTo(models.gallery);
     };
-    return user_gallery;
+    return comment;
 };
