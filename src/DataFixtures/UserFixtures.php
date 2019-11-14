@@ -16,6 +16,22 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = \Faker\Factory::create('fr_FR');
 
+        $admin = new User();
+        $admin
+            ->setFirstName("admin")
+            ->setLastName("itel")
+            ->setEmail("admin.itel@viacesi.fr")
+            ->setPassword('$argon2id$v=19$m=65536,t=4,p=1$bkFNRllZRVhDZTJUSlAwaQ$7Vfd1p7q9GuuqJjqqevtloUWhx84MJ9oLfhY1AUfN0U')
+            ->setRoles(["ROLE_BDE"])
+            ->setGenre("Terminator")
+            ->setImage("https://cdn.discordapp.com/attachments/497356708218273792/644524129076248616/JOE-ELLIS-TEA.jpg")
+            ->setPromotion($this->getReference('promotion-0'))
+            ->setCampus($this->getReference('campus-0'))
+            ->setAssociations($this->getReference('association-0'))
+        ;
+
+        $manager->persist($admin);
+
         for($i=0; $i<10; $i++) {
             $user = new User();
             $promotionTag = 'promotion-' . rand(0, 5);

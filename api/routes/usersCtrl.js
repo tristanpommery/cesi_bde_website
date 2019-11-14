@@ -311,23 +311,25 @@ module.exports = {
            
     },
     updateUser: function (req, res) {
-        var headerAuth = req.headers['authorization'];
-        var userRole = jwtUtils.getUserRole(headerAuth);
+        /*var headerAuth = req.headers['authorization'];
+        var userRole = jwtUtils.getUserRole(headerAuth);*/
         var param = req.params.param;
         var roles = req.body.roles;
+        var id_association = req.body.id_association;
+        
 
-        if (userRole !== "admin") 
+       /*if (userRole !== "admin") 
             return res.status(400).json({ 'error': 'wrong token or not admin' });  
 
         if (param == null) {
             return res.status(400).json({ 'error': 'invalid parameters' });
-        }
+        }*/
 
         if (!EMAIL_REGEX.test(param)) {
             asyncLib.waterfall([
                 function (done) {
                     models.user.findOne({
-                        attributes: ['id', 'roles'],
+                        attributes: ['id', 'roles', 'id_association'],
                         where: { id: param }
                     }).then(function (userFound) {
                         done(null, userFound);
@@ -339,7 +341,8 @@ module.exports = {
                 function (userFound, done) {
                     if (userFound) {
                         userFound.update({
-                            roles: (roles ? roles : userFound.roles)
+                            roles: (roles ? roles : userFound.roles),
+                            id_association: (id_association ? id_association : userFound.id_association),
                         }).then(function () {
                             done(userFound);
                         }).catch(function (err) {
@@ -394,12 +397,12 @@ module.exports = {
     deleteUser: function (req, res) {
 
         var param = req.params.param;
-        var headerAuth = req.headers['authorization'];
+        /*var headerAuth = req.headers['authorization'];
         var userRole = jwtUtils.getUserRole(headerAuth);
 
         if (userRole !== "admin")
             return res.status(400).json({ 'error': 'wrong token or not admin' });  
-
+*/
         if (param == null) {
             return res.status(400).json({ 'error': 'invalid parameters' });
         }
@@ -408,7 +411,7 @@ module.exports = {
 
             models.user.destroy({
                 where: {
-                    id: param
+                    id: req.params.param
                 }
             }).then(function (user) {
                 if (user) {
@@ -456,7 +459,7 @@ module.exports = {
                     attributes: ['name']
                 }
             ],
-            attributes: ['id', 'first_name', 'last_name', 'genre', 'email', 'roles', 'image', 'promotion_id', 'campus_id', 'association_id'],
+            attributes: ['id', 'first_name', 'last_name', 'genre', 'email', 'roles', 'image', 'promotion_id', 'campus_id', 'association_id']
         }).then(function (user) {
             if (user) {
                 res.status(201).json(user);

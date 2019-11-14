@@ -18,24 +18,19 @@ class GalleryType extends AbstractType
     {
         $builder
             ->add('image', FileType::class, [
-                'data_class'=> null,
-                'required'=>false,
-                'constraints' =>[
+                'data_class' => null,
+                'required' => false,
+                'constraints' => [
                     new File([
-                        'maxSize'=>'50M',
-                        'mimeTypes'=>[
+                        'maxSize' => '50M',
+                        'mimeTypes' => [
                             'image/png',
-                            'image/jpg'
+                            'image/jpeg'
                         ],
-                        'mimeTypesMessage'=>'Please upload a valid Image Document (PNG / JGP)'
+                        'mimeTypesMessage' => 'Please upload a valid Image Document (PNG / JPG)'
                     ])
                 ]
             ])
-            ->add('event', EntityType::class,[
-                'class'=>Event::class,
-                'choice_label'=>'name'
-            ])
-            ->add('fakeUser')
         ;
     }
 

@@ -1,35 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gallery index{% endblock %}
+{% block title %}Galerie{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="\assets\main\gallery\styleGalleryEvent.css">
+{% endblock %}
+
+
+{% block header %}
+    <div id="banner">
+        <div id="bannerText">
+            <h1 id="mainTitle">Galerie</h1>
+        </div>
+    </div>
+{% endblock %}
 
 {% block body %}
-    <h1>Gallery index</h1>
+    <div>
+        <h2>{{ event.name }}</h2>
+        <p>{{ event.description }}</p>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Image</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for gallery in galleries %}
-            <tr>
-                <td>{{ gallery.id }}</td>
-                <td>{{ gallery.image }}</td>
-                <td>
-                    <a href="{{ path('gallery_show', {'id': gallery.id}) }}">show</a>
-                    <a href="{{ path('gallery_edit', {'id': gallery.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% if app.user %}
+        {{ include('main/gallery/_form.html.twig') }}
+    {% endif %}
 
-    <a href="{{ path('gallery_new') }}">Create new</a>
+    {% for gallery in event.galleries %}
+    <div>
+        <img src="{{ gallery.image }}">
+        <p>Posté par {{ gallery.author.firstName }} {{ gallery.author.lastName }}</p>
+        {% if app.user %}
+            {% if app.user in gallery.users %}
+                <i class="fas fa-heart"></i>
+            {% else %}
+                <i class="far fa-heart"></i>
+            {% endif %}
+            {% if is_granted('ROLE_BDE') or app.user == gallery.author %}
+                <a href="{{ path('gallery_delete', {'yeet': event.id, 'id': gallery.id}) }}">Supprimer la photo</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endfor %}
 {% endblock %}

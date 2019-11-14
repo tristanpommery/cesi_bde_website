@@ -11,7 +11,7 @@ class AssociationFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create('fr_FR');
-        $associationNames = ["Cesi LAN", "Game on Desk", "PiXia", "1D", "Cesi Pêche & Tradition"];
+        $associationNames = ["BDE", "Cesi LAN", "Game on Desk", "PiXia", "Cesi Pêche & Tradition"];
 
         for($i=0; $i<count($associationNames); $i++) {
             $association = new Association();
