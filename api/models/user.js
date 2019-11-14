@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
 
     models.user.belongsTo(models.promotion);
 
+    models.user.belongsTo(models.association);
+
   };
   return user;
 };
