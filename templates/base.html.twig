@@ -16,8 +16,13 @@
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>
                 </li>
+                {% if app.user %}
+                <li class="navElement" id="profile"><a href="{{ path('user', {'id': app.user.id}) }}">{{ app.user.firstName }}</a></li>
+                <li class="navElement" id="logout"><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                {% else %}
                 <li class="navElement" id="signup"><a href="{{ path('signup') }}">S'inscrire</a></li>
                 <li class="navElement" id="login"><a href="{{ path('app_login') }}">Connexion</a></li>
+                {% endif %}
             </lu>
         </nav>
         <i class="fas fa-bars" id="menuIcon"></i>

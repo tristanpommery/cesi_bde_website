@@ -24,12 +24,17 @@
                 <p class="eventHour">à {{ event.date|date('H:i') }}</p>
                 <p class="eventDescription">{{ event.description }}</p>
                 <p class="eventPrice">Prix: {% if event.price == 0 %}Gratuit{% else %}{{ event.price }} €{% endif %}</p>
+                <a class="goToEvent" href="{{ path('event_show', {'id': event.id}) }}">Voir</a>
+                {% if is_granted('ROLE_BDE') %}
                 <a class="editEvent eventButton" href="{{ path('event_edit', {'id': event.id}) }}">Modifier</a>
                 <a class="deleteEvent eventButton" href="{{ path('event_delete', {'id': event.id}) }}">Supprimer</a>
+                {% endif %}
             </div>
         {% endfor %}
+        {% if is_granted('ROLE_BDE') %}
         <a id="createNew" href="{{ path('event_new') }}">
             <p>+</p>
         </a>
+        {% endif %}
     </div>
 {% endblock %}
