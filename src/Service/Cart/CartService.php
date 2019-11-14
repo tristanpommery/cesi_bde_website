@@ -112,9 +112,10 @@ class CartService
     public function checkout(\Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em, UserInterface $user)
     {
         $members = $em->getRepository(User::class)->findByRole('ROLE_BDE');
-        dd($members);
         if ($members) {
             foreach ($members as $member){
+
+
                 $message = (new \Swift_Message('Récapitulatif commande'))
                     ->setFrom('noreply@bde-cesi-st.fr')
                     ->setTo($member->getEmail())
