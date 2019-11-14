@@ -1,14 +1,23 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const user_event = sequelize.define('user_event', {
-    underscored: true,
     user_id: {
       type: DataTypes.INTEGER,
+      references: 'user',
+      referencesKey: 'id'
     },
     event_id: {
       type: DataTypes.INTEGER,
+      references: 'event',
+      referencesKey: 'id'
     }
-  }, { underscored: true });
+  }, { 
+    timestamps: false,
+    underscored: true,
+    freezeTableName: true,
+    tableName: 'user_event'
+   });
+   user_event.removeAttribute('id');
   user_event.associate = function(models) {
     // associations can be defined here
 

@@ -13,19 +13,18 @@ module.exports = {
             }
             models.user_event.findAll({
                 where: {
-                    userId: param
+                    user_id: param
                 },
                 include: [{
                     model: models.user,
-                    attributes: ['id', 'first_name', 'last_name', 'genre', 'email']
+                    attributes: []
                 },
                 {
                     model: models.event,
-                    attributes: ['id', 'name', 'description', 'price', 'localization']
+                    attributes: ['id', 'name', 'localization']
                 }
                 ],
-                attributes: ['user_id', 'event_id'],
-                
+                attributes: ['user_id']
             }).then(function (user) {
                 if (user) {
                     res.status(201).json(user);
@@ -47,7 +46,6 @@ module.exports = {
                 attributes: ['id', 'first_name', 'last_name', 'genre', 'email']
             }      
         ],
-            underscored: true,
             attributes: ['event_id','user_id']
         }).then(function (user) {
             if (user) {
