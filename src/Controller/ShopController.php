@@ -6,14 +6,15 @@ use App\Entity\Product;
 use App\Entity\Category;
 use App\Form\ProductType;
 use App\Service\ImageUploader;
+use App\Service\Cart\CartService;
 use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Article;
-use App\Service\Cart\CartService;
 
 /**
  * @Route ("/shop")
@@ -23,10 +24,11 @@ class ShopController extends AbstractController
     /**
      * @Route("/", name="shop", methods={"GET"})
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('main/product/index.html.twig', [
             'products' => $productRepository->findAll(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 

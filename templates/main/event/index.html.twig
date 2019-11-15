@@ -17,7 +17,20 @@
 {% block body %}
 <div id="content">
     <div class="event">
-        <div id="sortBar"><p>Trier par</p></div>
+        <div id="sortBar">
+        {#
+            <p id="sort">Trier par : </p>
+            <select id="sortBy">
+                <option value="date" selected>Date</option>
+                <option value="price">Prix</option>
+            </select>
+            <p id="order">Ordre : </p>
+            <select id="orderBy">
+                <option value="asc" selected>Croissant</option>
+                <option value="desc">Décroissant</option>
+            </select>
+        #}
+        </div>
         {% for event in events %}
             <div class="eventCard">
                 <p class="eventName">{{ event.name }}</p>

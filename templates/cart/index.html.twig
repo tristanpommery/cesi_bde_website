@@ -37,7 +37,7 @@
                         <td>
                             <a href="{{ path('cart_add', {'id':item.product.id}) }}">Ajouter un item</a>
                             <a href="{{ path('cart_remove', {'id':item.product.id}) }}">Supprimer un item</a>
-                            <a href="{{ path('cart_delete', {'id':item.product.id}) }}">Supprimer du Panier</a>
+                            {# <a href="{{ path('cart_delete', {'id':item.product.id}) }}">Supprimer du Panier</a> #}
                         </td>
 
                     </tr>
@@ -54,9 +54,11 @@
     {% else %}
         <p>Your cart is empty</p>
     {% endif %}
-    <div>
-        <a href="{{ path('checkout') }}">Confirmer la commande</a>
-    </div>
+    {% if items %}
+        <div>
+            <a href="{{ path('checkout') }}">Confirmer la commande</a>
+        </div>
+    {% endif %}
 {% endblock %}
 {% block javascripts %}
     <script src="/assets/main/home.js"></script>

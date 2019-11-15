@@ -36,10 +36,8 @@ class CartController extends AbstractController
      * @Route ("cart/add/{id}", name="cart_add")
      */
     public function add($id, CartService $cartService, Request $request){
-
-
         $cartService->add($id, $request);
-        return $this->redirectToRoute('product_show', ['id'=>$id]);
+        return $this->redirectToRoute('cart');
     }
 
     /**
@@ -49,8 +47,7 @@ class CartController extends AbstractController
     {
         $cartService->remove($id,$request);;
 
-        return $this->redirectToRoute('shop');
-
+        return $this->redirectToRoute('cart');
     }
 
 
@@ -59,9 +56,13 @@ class CartController extends AbstractController
      */
     public function checkout(CartService $cartService,\Swift_Mailer $mailer,Environment $renderer, EntityManagerInterface $em, UserInterface $user)
     {
-        $cartService->checkout( $mailer, $renderer, $em, $user);
+        $cart = $cartService->getFullCart();
+        if ($cart) {
+            $cartService->checkout( $mailer, $renderer, $em, $user);
+            return $this->render('cart/confirmation.html.twig');
+        }
 
-        return $this->render('cart/confirmation.html.twig');
+        return $this->redirectToRoute('cart');
     }
 
 
