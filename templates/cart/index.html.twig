@@ -35,7 +35,9 @@
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.product.price * item.quantity }}</td>
                         <td>
+                            <a href="{{ path('cart_add', {'id':item.product.id}) }}">Ajouter un item</a>
                             <a href="{{ path('cart_remove', {'id':item.product.id}) }}">Supprimer un item</a>
+                            <a href="{{ path('cart_delete', {'id':item.product.id}) }}">Supprimer du Panier</a>
                         </td>
 
                     </tr>
