@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentaire{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="\assets\main\gallery\styleGalleryEvent.css">
+{% endblock %}
+
+
+{% block header %}
+    <div id="banner">
+        <div id="bannerText">
+            <h1 id="mainTitle">Commentaire</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div>
+        <img src="{{ gallery.image }}" alt="YEET">
+        <p>Posté par {{ gallery.author.firstName }} {{ gallery.author.lastName }}</p>
+    </div>
+
+    {% if app.user %}
+        {{ include('main/comment/_form.html.twig') }}
+    {% endif %}
+
+    {% for comment in gallery.comments %}
+        <div>
+            <p>{{ comment.content }}</p>
+            <strong>{{ comment.user.firstName }} {{ comment.user.lastName }} à {{ comment.createdAt | date('d/m/Y à h:m') }}</strong>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}
+

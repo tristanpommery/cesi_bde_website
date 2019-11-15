@@ -22,14 +22,16 @@
         <p>{{ event.description }}</p>
     </div>
 
+
     {% if app.user %}
         {{ include('main/gallery/_form.html.twig') }}
     {% endif %}
-
     {% for gallery in event.galleries %}
     <div>
-        <img src="{{ gallery.image }}">
+        <img src="{{ gallery.image }}" alt="{{ event.name }}">
         <p>Posté par {{ gallery.author.firstName }} {{ gallery.author.lastName }}</p>
+        <a href="{{ path('gallery_show', {'yeet': event.id, 'id': gallery.id}) }}"><button type="button" id="editEvent" class="btn btn-primary">Voir les commentaires</button></a>
+
         {% if app.user %}
             {% if app.user in gallery.users %}
                 <i class="fas fa-heart"></i>
