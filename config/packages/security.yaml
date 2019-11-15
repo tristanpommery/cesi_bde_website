@@ -42,4 +42,4 @@ security:
 
     access_control:
             - { path: ^/admin, roles: ROLE_BDE }
-            - { path: ^/user/{id}, roles: ROLE_EMPLOYEE, ROLE_USER }
+            #- { path: ^/user/{id}, roles: [ROLE_EMPLOYEE, ROLE_USER] }
