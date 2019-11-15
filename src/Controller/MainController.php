@@ -30,6 +30,7 @@ class MainController extends AbstractController
     {
         return $this->render('main/user.html.twig', [
             'id'=>$id,
+            'firstname'=>$this->getUser()->getFirstName()
         ]);
     }
 
