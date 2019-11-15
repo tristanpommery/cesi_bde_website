@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Event;
 use App\Entity\User;
+use App\Entity\Event;
+use Twig\Environment;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,9 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Twig\Environment;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class EventController extends AbstractController
@@ -83,6 +84,39 @@ class EventController extends AbstractController
             'isParticipating' => $isParticipating,
             'participatingCount' => $participatingCount,
         ]);
+    }
+
+    /**
+     * @Route("/event/{id}/users", name="event_user")
+     */
+    public function users(Event $event): Response
+    {
+        return $this->render('main/event/user.html.twig', [
+            'event' => $event,
+        ]);
+    }
+
+    /**
+     * @Route("/event/{id}/users/download", name="event_download")
+     */
+    public function download(Event $event): Response
+    {
+        $usersObj = $event->getUsers()->toArray();
+        $users = array_map(function($user) {
+            return $user->getFirstName() . " " . $user->getLastName();
+        }, $usersObj);
+
+        $fileContent = implode(',', $users);
+        $filename = 'users.csv';
+        
+        $response = new Response($fileContent);
+        $disposition = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
+
+        $response->headers->set('Content-Disposition', $disposition);
+        return $response;
     }
 
     /**

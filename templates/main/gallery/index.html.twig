@@ -38,6 +38,7 @@
             {% else %}
                 <i class="far fa-heart"></i>
             {% endif %}
+            <a href="{{ gallery.image }}" download><i class="fas fa-arrow-circle-down"></i></a>
             {% if is_granted('ROLE_BDE') or app.user == gallery.author %}
                 <a href="{{ path('gallery_delete', {'yeet': event.id, 'id': gallery.id}) }}">Supprimer la photo</a>
             {% endif %}
@@ -48,7 +49,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Signalement pour de l'image de {{ gallery.author.firstName }} {{ gallery.author.lastName }}</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Signalement pour de l'image d'un commentaire</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

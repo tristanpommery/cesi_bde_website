@@ -32,6 +32,21 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($admin);
 
+        $employee = new User();
+        $employee
+            ->setFirstName("Olivier")
+            ->setLastName("Sandel")
+            ->setEmail("osandel@viacesi.fr")
+            ->setPassword('$argon2id$v=19$m=65536,t=4,p=1$bkFNRllZRVhDZTJUSlAwaQ$7Vfd1p7q9GuuqJjqqevtloUWhx84MJ9oLfhY1AUfN0U')
+            ->setRoles(["ROLE_EMPLOYEE"])
+            ->setGenre("Homme")
+            ->setImage("https://cdn.discordapp.com/attachments/497356708218273792/644524129076248616/JOE-ELLIS-TEA.jpg")
+            ->setPromotion($this->getReference('promotion-0'))
+            ->setCampus($this->getReference('campus-0'))
+            ->setAssociations($this->getReference('association-0'));
+
+        $manager->persist($employee);
+
         for($i=0; $i<10; $i++) {
             $user = new User();
             $promotionTag = 'promotion-' . rand(0, 5);
@@ -41,13 +56,18 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $firstName = $faker->firstName();
             $lastName = $faker->lastName();
             $email = $firstName . "." . $lastName . "@viacesi.fr";
+            if (rand(0, 1) == 1) {
+                $genre = "Homme";
+            } else {
+                $genre = "Femme";
+            }
 
             $user
                 ->setFirstName($firstName)
                 ->setLastName($lastName)
                 ->setEmail($email)
                 ->setPassword($faker->md5)
-                ->setGenre($faker->fileExtension)
+                ->setGenre($genre)
                 ->setImage($faker->imageUrl(300, 300))
                 ->setPromotion($this->getReference($promotionTag))
                 ->setCampus($this->getReference($campusTag))

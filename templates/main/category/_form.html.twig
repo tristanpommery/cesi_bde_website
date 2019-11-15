@@ -1,4 +1,8 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div id="formName" class="formRow">
+        <p>Nom</p>
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
+    </div>
+    <button class="categoryFormButton">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
