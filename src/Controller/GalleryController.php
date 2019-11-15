@@ -82,7 +82,7 @@ class GalleryController extends AbstractController
         $content = $request->get('report_message');
         if ($members) {
             foreach ($members as $member) {
-                $message = (new \Swift_Message('signalement évènement :' . $event->getName()))
+                $message = (new \Swift_Message('signalement image :' . $event->getName()))
                     ->setFrom($this->getUser()->getEmail())
                     ->setTo($member->getEmail())
                     ->setBody($renderer->render('main/event/report.html.twig', [

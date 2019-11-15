@@ -15,13 +15,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Twig\Environment;
 
-/**
- * @Route("/event")
- */
+
 class EventController extends AbstractController
 {
     /**
-     * @Route("/", name="event_index", methods={"GET"})
+     * @Route("/event", name="event_index", methods={"GET"})
      */
     public function index(EventRepository $eventRepository): Response
     {
@@ -31,7 +29,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="event_new", methods={"GET","POST"})
+     * @Route("/event/new", name="event_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -67,7 +65,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="event_show", methods={"GET"})
+     * @Route("/event/{id}", name="event_show", methods={"GET"})
      */
     public function show(Event $event): Response
     {
@@ -88,7 +86,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route ("/apply/{id}", name="event_apply")
+     * @Route ("/event/apply/{id}", name="event_apply")
      */
     public function add(Event $event, ObjectManager $manager): Response
     {
@@ -103,7 +101,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/disapply/{id}", name="event_disapply")
+     * @Route("/event/disapply/{id}", name="event_disapply")
      */
     public function remove(Event $event, ObjectManager $manager): Response
     {
@@ -118,7 +116,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="event_edit", methods={"GET","POST"})
+     * @Route("/event/{id}/edit", name="event_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Event $event): Response
     {
@@ -151,7 +149,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="event_delete", methods={"DELETE"})
+     * @Route("/event/{id}", name="event_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Event $event): Response
     {
@@ -165,7 +163,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/report/{id}", name="event_report")
+     * @Route("/event/report/{id}", name="event_report")
      */
     public function report(Request $request, Event $event, \Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em, UserInterface $user)
         {

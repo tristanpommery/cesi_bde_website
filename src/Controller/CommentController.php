@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Event;
 use App\Entity\Gallery;
+use App\Entity\User;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -12,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Twig\Environment;
 
 
 class CommentController extends AbstractController
@@ -114,6 +118,31 @@ class CommentController extends AbstractController
             "gallery" => $gallery,
             "form" => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/comment/report/{id}", name="comment_report")
+     */
+    public function report(Request $request, Comment $comment, Event $event, \Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em, UserInterface $user)
+    {
+        $members = $em->getRepository(User::class)->findByRole('ROLE_BDE');
+        $content = $request->get('report_message');
+        if ($members) {
+            foreach ($members as $member) {
+                $message = (new \Swift_Message('signalement image :' . $event->getName()))
+                    ->setFrom($this->getUser()->getEmail())
+                    ->setTo($member->getEmail())
+                    ->setBody($renderer->render('main/comment/report.html.twig', [
+                        'content' => $content,
+                        'comment' => $comment
+                    ]),
+                        'text/html'
+                    );
+                $mailer->send($message);
+
+            }
+        }
+        return $this->redirectToRoute('gallery_event', ['id' => $event->getId()]);
     }
 }
 
