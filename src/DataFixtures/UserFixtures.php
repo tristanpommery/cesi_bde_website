@@ -41,13 +41,18 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $firstName = $faker->firstName();
             $lastName = $faker->lastName();
             $email = $firstName . "." . $lastName . "@viacesi.fr";
+            if (rand(0, 1) == 1) {
+                $genre = "Homme";
+            } else {
+                $genre = "Femme";
+            }
 
             $user
                 ->setFirstName($firstName)
                 ->setLastName($lastName)
                 ->setEmail($email)
                 ->setPassword($faker->md5)
-                ->setGenre($faker->fileExtension)
+                ->setGenre($genre)
                 ->setImage($faker->imageUrl(300, 300))
                 ->setPromotion($this->getReference($promotionTag))
                 ->setCampus($this->getReference($campusTag))

@@ -10,7 +10,7 @@ class CategoryFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $categoryNames = ["Habits", "Accessoires", "Goodies", "Trébuchets", "Sextoys"];
+        $categoryNames = ["T-Shirts", "Pulls", "Accessoires", "Goodies", "Trébuchets"];
 
         for($i=0; $i<count($categoryNames); $i++) {
             $category = new Category();
