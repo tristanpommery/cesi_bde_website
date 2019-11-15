@@ -4,7 +4,10 @@ module.exports = {
     getProduct: function (req, res) {
 
         models.product.findAll({
-            attributes: ['id', 'name', 'price', 'image', 'stock']
+            include: [{
+                model: models.category
+            }],
+            attributes: ['id', 'name', 'price', 'image', 'stock', 'name']
         }).then(function (product) {
             if (product) {
                 res.status(201).json(product);

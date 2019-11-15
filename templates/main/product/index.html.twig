@@ -16,21 +16,35 @@
 
 {% block body %}
 <div id="content">
-    <div class="shop">
-        <div id="sortBar"><p>Trier par</p></div>
-        {% for product in products %}
-            <div class="shopCard">
-                <img class="productImage" src={{ product.image }} alt="productImage">
-                <p class="productName">{{ product.name }}<p>
-                <p class="productStock">{% if product.stock == 0 %}Rupture de stock{% else %}Stock: {{ product.stock }}{% endif %}<p>
-                <p class="productPrice">Prix: {% if product.price == 0 %}Gratuit{% else %}{{ product.price }} €{% endif %}</p>
-                <a class="goToProduct productButton" href="{{ path('product_show', {'id': product.id}) }}">Voir</a>
-                {% if is_granted('ROLE_BDE') %}
-                <a class="editProduct productButton" href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a>
-                <a class="deleteProduct productButton" href="{{ path('product_delete', {'id': product.id}) }}">Supprimer</a>
-                {% endif %}
-            </div>
-        {% endfor %}
+        <div id="sortBar">
+            <p id="sort">Trier par : </p>
+            <select id="sortBy">
+                <option value="name" selected>Nom</option>
+                <option value="price">Prix</option>
+                <option value="category">Catégorie</option>
+            </select>
+            <p id="order">Ordre : </p>
+            <select id="orderBy">
+                <option value="asc" selected>Croissant</option>
+                <option value="desc">Décroissant</option>
+            </select>
+        </div>
+        <div id="filterBar">
+            <p id="filter">Filtrer par : </p>
+            <p id="paramCategory">catégorie : </p>
+            <select id="category">
+                <option value="" selected></option>
+                {% for category in categories %}
+                    <option value="{{ category.name }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <p id="paramPrice">prix : </p>
+            <p id="minPrice">min-</p>
+            <input type="number" id="min">
+            <p id="maxPrice">max-</p>
+            <input type="number" id="max">
+        </div>
+    <div id="shop">
         {% if is_granted('ROLE_BDE') %}
         <a id="createNew" href="{{ path('product_new') }}">
             <p>+</p>
@@ -38,4 +52,8 @@
         {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/main/shop/shop.js"></script>
 {% endblock %}

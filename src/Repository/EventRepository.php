@@ -22,7 +22,6 @@ class EventRepository extends ServiceEntityRepository
     /**
      * @return Event[] Returns an array of Event objects
      */
-    
     public function find3firsts()
     {
         return $this->createQueryBuilder('e')
@@ -30,6 +29,18 @@ class EventRepository extends ServiceEntityRepository
             ->setParameter('val', $value)*/
             ->orderBy('e.id', 'ASC')
             ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Event[] Returns an array of Event objects
+     */
+    public function findAllOrderedByDate()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.date', 'DESC')
             ->getQuery()
             ->getResult()
         ;

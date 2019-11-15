@@ -117,6 +117,8 @@ async function getUsers(){
 
             if(user.roles[0]!="ROLE_BDE"){
                 row += `<td><button onclick="deleteUser(${user.id})">BAN</button></td>`
+            } else {
+                row += `<td></td>`
             }
             row += `</tr>`
             table += row
