@@ -36,6 +36,7 @@
             {% else %}
                 <i class="far fa-heart"></i>
             {% endif %}
+            <a href="{{ gallery.image }}" download><i class="fas fa-arrow-circle-down"></i></a>
             {% if is_granted('ROLE_BDE') or app.user == gallery.author %}
                 <a href="{{ path('gallery_delete', {'yeet': event.id, 'id': gallery.id}) }}">Supprimer la photo</a>
             {% endif %}

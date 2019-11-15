@@ -1,0 +1,7 @@
+<a href="{{ path('event_download', {'id': event.id}) }}">Télécharger la liste</a>
+
+{% for user in event.users %}
+    <div>
+        <p>{{user.firstName}} {{user.lastName}}</p>
+    </div>
+{% endfor %}
