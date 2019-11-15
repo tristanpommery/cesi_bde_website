@@ -1,11 +1,24 @@
 {% extends 'base.html.twig' %}
 
-
+{% block title %}Cart checkout{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/main/shop/styleShop.css">
+    <link rel="stylesheet" href="/assets/main/cart/styleCart.css">
+{% endblock %}
+{% block header %}
+    <div id="banner">
+        <div id="bannerText">
+            <h1 id="mainTitle">Panier</h1>
+        </div>
+    </div>
+{% endblock %}
 {% block body %}
+<div id="content">
+    <div class="cart">
+    <h3>{{ app.user.firstName }}, votre commande a bien été passée!</h3>
+    <p>Elle sera traitée très bientôt par un des membres du BDE.</p>
 
-    <h1>Votre commande a bien été passée {{ app.user.firstName }}</h1>
-
-    <h2>Elle sera bientôt traitée par un des membres du BDE</h2>
-
-    <a href="{{ path('home') }}">Retour au menu</a>
+    <a class="goBack" id="checkoutGoBack" href="{{ path('home') }}">Retour au menu</a>
+    </div>
+</div>
 {% endblock %}
