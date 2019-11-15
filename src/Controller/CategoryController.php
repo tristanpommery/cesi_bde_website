@@ -28,7 +28,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/new", name="category_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, CategoryRepository $categoryRepository): Response
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
@@ -39,12 +39,13 @@ class CategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
-            return $this->redirectToRoute('category_index');
+            return $this->redirectToRoute('admin_dashboard');
         }
 
         return $this->render('main/category/new.html.twig', [
             'category' => $category,
             'form' => $form->createView(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
@@ -69,7 +70,7 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('category_index');
+            return $this->redirectToRoute('admin_dashboard');
         }
 
         return $this->render('main/category/edit.html.twig', [

@@ -2,10 +2,32 @@
 
 {% block title %}New Category{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/admin/styleAdmin.css">
+    <link rel="stylesheet" href="/assets/main/category/styleCategoryForm.css">
+{% endblock %}
+
+{% block header %}
+    <div id="banner">
+        <div id="bannerText">
+            <h1 id="mainTitle">Administration</h1>
+        </div>
+    </div>
+{% endblock %}
+
 {% block body %}
-    <h1>Create new Category</h1>
+    <div id="pageContent">
 
-    {{ include('main/category/_form.html.twig') }}
+        <h2 id="info">Catégories existantes</h2>
+        <div id="categories">
+        {% for category in categories %}
+            <p>{{ category.name }}</p>
+        {% endfor %}
+        </div>
+        <h2 id="action">Créer une Catégorie</h2>
 
-    <a href="{{ path('category_index') }}">back to list</a>
+        {{ include('main/category/_form.html.twig') }}
+
+        <a class="goBack" href="{{ path('admin_dashboard') }}">Retour</a>
+    </div>
 {% endblock %}

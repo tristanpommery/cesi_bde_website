@@ -38,3 +38,7 @@ nav{
     font-family: 'roboto-regular';
     font-size: 4em;
 }
+
+#footer{
+    display:none;
+}
