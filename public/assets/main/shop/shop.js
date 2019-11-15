@@ -132,7 +132,17 @@ async function getProducts(){
 
             productCards += card
         })
-        shop.innerHTML=productCards
+        if(document.getElementsByClassName('shopCard')){
+            removeElementsByClass('shopCard')
+        }
+        shop.insertAdjacentHTML('afterbegin', productCards)
     }
     request.send()
+}
+
+function removeElementsByClass(className){
+    let elements = document.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
 }
