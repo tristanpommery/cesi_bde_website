@@ -28,8 +28,6 @@ module.exports = (sequelize, DataTypes) => {
 
     models.product.belongsTo(models.association);
 
-    models.product.hasMany(models.user, { onDelete: 'CASCADE' });
-
     models.product.hasMany(models.comment, { onDelete: 'CASCADE' });
   };
   return product;

@@ -1,6 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     const gallery = sequelize.define('gallery', {
+        id: {
+            type: DataTypes.UUID,
+            primaryKey: true,
+            defaultValue: DataTypes.UUIDV4,
+            allowNull: false,
+            autoIncrement: false,
+        },
         event_id: {
             type: DataTypes.INTEGER,
             references: 'event',
@@ -20,11 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     });
     gallery.associate = function (models) {
         // associations can be defined here
-        models.gallery.hasMany(models.user_gallery, { onDelete: 'CASCADE' });
+        models.gallery.belongsToMany(models.user, { through: 'user_gallery' }, { onDelete: 'CASCADE' });
 
         models.gallery.belongsTo(models.event);
 
-        models.gallery.belongsTo(models.user);
     };
     return gallery;
 };
