@@ -2,13 +2,22 @@
 
 namespace App\Controller;
 
-use Twig\Environment;
+use App\Entity\Product;
+use App\Repository\ProductRepository;
+use App\Repository\UserRepository;
 use App\Service\Cart\CartService;
+use App\Service\Mailer\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
+use Swift_Mailer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Twig\Environment;
+use App\Entity\User;
 
 class CartController extends AbstractController
 {
@@ -26,36 +35,38 @@ class CartController extends AbstractController
     /**
      * @Route ("cart/add/{id}", name="cart_add")
      */
-    public function add($id, CartService $cartService) {
-        $cartService->add($id);
-        return $this->redirectToRoute('cart');
+    public function add($id, CartService $cartService, Request $request){
+
+
+        $cartService->add($id, $request);
+        return $this->redirectToRoute('product_show', ['id'=>$id]);
     }
 
     /**
-     * @Route ("cart/remove/{id}", name="cart_remove")
+     * @Route("/cart/remove/{id}", name="cart_remove")
      */
-    public function remove($id, CartService $cartService)
+    public function remove($id,CartService $cartService, Request $request)
     {
-        $cartService->remove($id);
-        return $this->redirectToRoute('cart');
+        $cartService->remove($id,$request);;
+
+        return $this->redirectToRoute('shop');
+
     }
 
-    /**
-     * @Route("/cart/delete/{id}", name="cart_delete")
-     */
-    public function delete($id, CartService $cartService)
-    {
-        $cartService->delete($id);
-        return $this->redirectToRoute('cart');
-    }
 
     /**
      * @Route("/cart/checkout", name="checkout")
      */
-    public function checkout(CartService $cartService, \Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em)
+    public function checkout(CartService $cartService,\Swift_Mailer $mailer,Environment $renderer, EntityManagerInterface $em, UserInterface $user)
     {
-        $cartService->checkout($mailer, $renderer, $em);
+        $cartService->checkout( $mailer, $renderer, $em, $user);
 
         return $this->render('cart/confirmation.html.twig');
     }
+
+
+
+
+
+
 }
