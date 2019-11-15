@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Shop{% endblock %}
+{% block title %}Users administration{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="/assets/admin/styleAdmin.css">
     <link rel="stylesheet" href="/assets/admin/styleAdminUsers.css">
-
-
 {% endblock %}
 
 {% block header %}
@@ -54,6 +52,7 @@
 
             </tbody>
         </table>
+        <a class="goBack" href="{{ path('admin_dashboard') }}">Retour</a>
     </div>
 </div>
 {% endblock %}
