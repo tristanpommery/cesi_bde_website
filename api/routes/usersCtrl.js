@@ -3,6 +3,14 @@ var bcrypt = require('bcrypt');
 var jwtUtils = require('../utils/jwt.utils');
 var models = require('../models');
 var asyncLib = require('async');
+var mysql = require('mysql');
+
+var conn = mysql.createConnection({
+    database: "cesi_bde_strasbourg",
+    host: "localhost",
+    user: "root",
+    password: ""
+});
 
 // Constants
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -394,48 +402,38 @@ module.exports = {
             });
         }  
     },
-    deleteUser: function (req, res) {
+    deleteUser: function (req, res) {        
 
-        var param = req.params.param;
-        /*var headerAuth = req.headers['authorization'];
-        var userRole = jwtUtils.getUserRole(headerAuth);
+        conn.connect(function(err) {
+            if(err) {
+                throw err;
+            }
+            console.log("Connected");
 
-        if (userRole !== "admin")
-            return res.status(400).json({ 'error': 'wrong token or not admin' });  
-*/
-        if (param == null) {
-            return res.status(400).json({ 'error': 'invalid parameters' });
-        }
+            var param = req.params.param;
 
-        if (!EMAIL_REGEX.test(param)) {
+            var sql1 = "DELETE FROM comment WHERE user_id = ?";
+            var sql2 = "DELETE FROM gallery WHERE author_id = ?";
+            var sql3 = "DELETE FROM user_gallery WHERE user_id = ?";
+            var sql4 = "DELETE FROM user WHERE id = ?";
 
-            models.user_event.destroy({
-                where: {
-                    user_id: req.params.param
-                }
-            }).then(function (user) {
-                if (user) {
-                    res.status(200).json({ 'success': 'user deleted' });
-                } else {
-                    res.status(404).json({ 'error': 'user not found' });
-                }
-            }).catch(function (err) {
-                res.status(500).json({ 'error': 'cannot fetch user' });
+            conn.query(sql1, [param], function(err, result) {
+                if (err) throw err;
+                console.log("Number of records deleted: " + result.affectedRows);
             });
-        } else {
-
-            models.user.destroy({
-                where: { email: param }
-            }).then(function (user) {
-                if (user) {
-                    res.status(200).json({ 'success': 'user deleted'});
-                } else {
-                    res.status(404).json({ 'error': 'user not found' });
-                }
-            }).catch(function (err) {
-                res.status(500).json({ 'error': 'cannot fetch user' });
+            conn.query(sql2, [param], function (err, result) {
+                if (err) throw err;
+                console.log("Number of records deleted: " + result.affectedRows);
             });
-        }
+            conn.query(sql3, [param], function (err, result) {
+                if (err) throw err;
+                console.log("Number of records deleted: " + result.affectedRows);
+            });
+            conn.query(sql4, [param], function (err, result) {
+                if (err) throw err;
+                console.log("Number of records deleted: " + result.affectedRows);
+            });
+        });
     },
     getUser: function (req, res) {
         // Getting auth header
