@@ -17,7 +17,6 @@ module.exports = {
                 },
                 include: [{
                     model: models.user,
-                    attributes: []
                 },
                 {
                     model: models.event,
