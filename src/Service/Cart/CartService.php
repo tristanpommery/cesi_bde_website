@@ -2,12 +2,12 @@
 
 namespace App\Service\Cart;
 
-use App\Entity\Product;
 use App\Entity\User;
-use App\Repository\ProductRepository;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Twig\Environment;
+use App\Entity\Product;
+use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
 {
@@ -20,7 +20,7 @@ class CartService
         $this->productRepository = $productRepository;
     }
 
-    public function add(int $id, Request $request)
+    public function add(int $id)
     {
         $cart = $this->session->get('cart', []);
         if (!empty($cart[$id])) {
@@ -28,7 +28,6 @@ class CartService
         } else {
             $cart[$id] = 1;
         }
-
         $this->session->set('cart', $cart);
     }
 
@@ -50,6 +49,7 @@ class CartService
         if (!empty($cart[$id])) {
             unset($cart[$id]);
         }
+        $this->session->set('cart', $cart);
     }
 
     public function getFullCart(): array
@@ -57,13 +57,11 @@ class CartService
         $cart = $this->session->get('cart', []);
         $cartWithData = [];
         foreach ($cart as $id => $quantity) {
-
             $cartWithData[] = [
                 'product' => $this->productRepository->find($id),
                 'quantity' => $quantity
             ];
         }
-
         return $cartWithData;
     }
 
@@ -75,19 +73,42 @@ class CartService
             $totalItem = $item['product']->getPrice() * $item['quantity'];
             $total += $totalItem;
         }
-
         return $total;
     }
 
     public function isInCart(Product $product): bool
     {
         $cartWithData = $this->getFullCart();
+
         foreach ($cartWithData as $item) {
             if ($item['product'] == $product) {
                 return true;
             }
         }
-
         return false;
+    }
+
+    public function checkout(\Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em)
+    {
+        $members = $em->getRepository(User::class)->findByRole('ROLE_BDE');
+        if ($members) {
+            foreach ($members as $member) {
+
+
+                $message = (new \Swift_Message('Récapitulatif commande'))
+                    ->setFrom('noreply@bde-cesi-st.fr')
+                    ->setTo($member->getEmail())
+                    ->setBody(
+                        $renderer->render('cart/mail.html.twig', [
+                            'items' => $cartWithData = $this->getFullCart(),
+                            'total' => $total = $this->getTotal()
+                        ]),
+                        'text/html'
+                    );
+                $mailer->send($message);
+            }
+        }
+        unset($_COOKIE['cartCookie']);
+        setcookie('cartCookie', null, -1, '/');
     }
 }

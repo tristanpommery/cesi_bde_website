@@ -2,22 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
-use App\Repository\ProductRepository;
-use App\Repository\UserRepository;
+use Twig\Environment;
 use App\Service\Cart\CartService;
-use App\Service\Mailer\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
-use Swift_Mailer;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Twig\Environment;
-use App\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class CartController extends AbstractController
 {
@@ -58,22 +49,13 @@ class CartController extends AbstractController
         return $this->redirectToRoute('cart');
     }
 
-    }
-
-
     /**
      * @Route("/cart/checkout", name="checkout")
      */
-    public function checkout(CartService $cartService,\Swift_Mailer $mailer,Environment $renderer, EntityManagerInterface $em, UserInterface $user)
+    public function checkout(CartService $cartService, \Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em)
     {
-        $cartService->checkout( $mailer, $renderer, $em, $user);
+        $cartService->checkout($mailer, $renderer, $em);
 
         return $this->render('cart/confirmation.html.twig');
     }
-
-
-
-
-
-
 }
