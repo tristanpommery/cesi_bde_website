@@ -113,10 +113,12 @@ async function getUsers(){
                 <td>${user.campus.name}</td>
                 <td>${user.genre}</td>
                 <td>${user.association.name}</td>
-                <td>${user.roles[0]}</td>
-                <td><button onclick="deleteUser(${user.id})">BAN</button></td>
-                </tr>
-            `
+                <td>${user.roles[0]}</td>`
+
+            if(user.roles[0]!="ROLE_BDE"){
+                row += `<td><button onclick="deleteUser(${user.id})">BAN</button></td>`
+            }
+            row += `</tr>`
             table += row
             tbody.innerHTML=table
         })

@@ -251,9 +251,13 @@ module.exports = {
                     {
                         model: models.promotion,
                         attributes: ['name']
-                    }
+                        },
+                        {
+                            model: models.association,
+                            attributes: ['name']
+                        }
                     ],
-                    attributes: ['id', 'first_name', 'last_name', 'genre', 'email', 'roles', 'image', 'promotion_id', 'campus_id'],
+                    attributes: ['id', 'first_name', 'last_name', 'genre', 'email', 'roles', 'image', 'promotion_id', 'campus_id', 'association_id'],
                     where: { id: param }
                 }).then(function (user) {
                     if (user) {
@@ -273,9 +277,13 @@ module.exports = {
                     {
                         model: models.promotion,
                         attributes: ['name']
+                    },
+                    {
+                        model: models.association,
+                        attributes: ['name']
                     }
                     ],
-                    attributes: ['id', 'first_name', 'last_name', 'genre', 'email', 'roles', 'image', 'promotion_id', 'campus_id'],
+                    attributes: ['id', 'first_name', 'last_name', 'genre', 'email', 'roles', 'image', 'promotion_id', 'campus_id', 'association_id'],
                     where: { email: param }
                 }).then(function (user) {
                     if (user) {

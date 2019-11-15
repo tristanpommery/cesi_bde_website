@@ -3,8 +3,11 @@
 namespace App\Service\Cart;
 
 use App\Entity\Product;
+use App\Entity\User;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Twig\Environment;
 
 class CartService
 {
@@ -17,7 +20,7 @@ class CartService
         $this->productRepository = $productRepository;
     }
 
-    public function add(int $id)
+    public function add(int $id, Request $request)
     {
         $cart = $this->session->get('cart', []);
         if (!empty($cart[$id])) {
@@ -47,8 +50,6 @@ class CartService
         if (!empty($cart[$id])) {
             unset($cart[$id]);
         }
-
-        $this->session->set('cart', $cart);
     }
 
     public function getFullCart(): array
@@ -70,7 +71,6 @@ class CartService
     {
         $total = 0;
         $cartWithData = $this->getFullCart();
-
         foreach ($cartWithData as $item) {
             $totalItem = $item['product']->getPrice() * $item['quantity'];
             $total += $totalItem;
