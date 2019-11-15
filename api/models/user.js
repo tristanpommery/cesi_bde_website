@@ -1,6 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      autoIncrement: false,
+    },
     association_id: {
       type: DataTypes.INTEGER,
       references: 'association',
@@ -31,7 +38,8 @@ module.exports = (sequelize, DataTypes) => {
    });
   user.associate = function(models) {
     // associations can be defined here
-    models.user.hasMany(models.user_event, { onDelete: 'CASCADE' });
+    models.user.belongsToMany(models.event, {through: 'user_event'}, { onDelete: 'CASCADE' });
+    models.user.belongsToMany(models.gallery, { through: 'user_gallery' }, { onDelete: 'CASCADE' });
 
     models.user.belongsTo(models.campus);
 

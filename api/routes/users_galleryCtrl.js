@@ -37,18 +37,7 @@ module.exports = {
         });
     },
     getUser: function (req, res) {
-        models.user_gallery.findAll({
-            include: [{
-                model: models.user,
-                attributes: ['id', 'first_name', 'last_name', 'genre', 'email']
-                },
-                {
-                    model: models.gallery,
-                    attributes: ['id', 'image']
-                },
-            ],
-            attributes: ['user_id', 'gallery_id']
-        }).then(function (user) {
+        models.user_gallery.findAll({attributes: ['email', 'user_id', 'gallery_id', 'image']}).then(function (user) {
             if (user) {
                 res.status(201).json(user);
             } else {
@@ -115,6 +104,45 @@ module.exports = {
             } else {
                 return res.status(500).json({ 'error': 'cannot like image' });
             }
+        });
+    },
+    deleteLike: function (req, res) {
+
+        var user = req.body.user_id;
+        var gallery = req.body.gallery_id;
+
+            models.user_gallery.destroy({
+                where: {
+                    user_id: user,
+                    gallery_id: gallery
+                }
+            }).then(function (user) {
+                if (user) {
+                    res.status(200).json({ 'success': 'Like deleted' });
+                } else {
+                    res.status(404).json({ 'error': 'Like not found' });
+                }
+            }).catch(function (err) {
+                res.status(500).json({ 'error': 'cannot fetch Like' });
+            });
+    },
+    createLike: function (req, res) {
+
+        var user = req.body.user_id;
+        var gallery = req.body.gallery_id;
+
+        var newLike = models.user_gallery.create({
+            user_id: user,
+            gallery_id: gallery
+        })
+        .then(function (newLike) {
+            if (newLike) {
+                res.status(200).json({ 'success': 'Like added' });
+            } else {
+                res.status(404).json({ 'error': 'Like not found' });
+            }
+        }).catch(function (err) {
+            return res.status(500).json({ 'error': 'aled' });
         });
     }
 }
