@@ -74,9 +74,12 @@ class EventController extends AbstractController
             $isParticipating = false;
         }
 
+        $participatingCount = count($event->getUsers());
+
         return $this->render('main/event/show.html.twig', [
             'event' => $event,
             'isParticipating' => $isParticipating,
+            'participatingCount' => $participatingCount,
         ]);
     }
 

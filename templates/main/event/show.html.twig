@@ -25,7 +25,7 @@
             <p id="eventDuration">Durée: {{ event.duration }}</p>
             <p id="eventPrice">Entrée: {% if event.price == 0 %}Gratuite{% elseif event.price == 0.5 %}Fifty cents{% else %}{{ event.price }} €{% endif %}</p>
             <p id="eventLocalization">Lieu: {{ event.localization }}</p>
-            <p id="eventParticipations">Participants:</p>
+            <p id="eventParticipations">Participants: {{ participatingCount }}</p>
             <p id="eventDescription">{{ event.description }}</p>
             {% if app.user %}
             {% if isParticipating %}
