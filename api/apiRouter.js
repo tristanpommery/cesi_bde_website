@@ -33,6 +33,8 @@ exports.router = (function() {
     apiRouter.route('/associations').get(associationsCtrl.getAssociation);
     apiRouter.route('/events').get(eventsCtrl.getEvent);
     apiRouter.route('/products').get(productsCtrl.getProduct);
+    apiRouter.route('/unlike').post(users_galleryCtrl.deleteLike);
+    apiRouter.route('/like').post(users_galleryCtrl.createLike);
 
     return apiRouter;
 })();

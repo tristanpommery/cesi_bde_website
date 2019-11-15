@@ -409,9 +409,9 @@ module.exports = {
 
         if (!EMAIL_REGEX.test(param)) {
 
-            models.user.destroy({
+            models.user_event.destroy({
                 where: {
-                    id: req.params.param
+                    user_id: req.params.param
                 }
             }).then(function (user) {
                 if (user) {
@@ -469,5 +469,32 @@ module.exports = {
         }).catch(function (err) {
             res.status(500).json({ 'error': 'cannot fetch user' });
         });
-    }
+    },
+    getUser2: function (req, res) {
+        models.user.findAll({
+            include: [{
+                model: models.campus,
+                attributes: ['name']
+            },
+            {
+                model: models.promotion,
+                attributes: ['name']
+            },
+            {
+                model: models.association,
+                attributes: ['name']
+            }
+            ],
+            attributes: ['id', 'first_name', 'last_name', 'genre', 'email', 'roles', 'image', 'promotion_id', 'campus_id', 'association_id']
+        })
+        .then(function (user) {
+            if (user) {
+                res.status(201).json(user);
+            } else {
+                res.status(404).json({ 'error': 'user not found' });
+            }
+        }).catch(function (err) {
+            res.status(500).json({ 'error': 'cannot fetch user' });
+        });
+    },
 }

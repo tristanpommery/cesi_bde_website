@@ -3,13 +3,11 @@ module.exports = (sequelize, DataTypes) => {
     const user_gallery = sequelize.define('user_gallery', {
         user_id: {
             type: DataTypes.INTEGER,
-            references: 'user',
-            referencesKey: 'id'
+            primaryKey: true
         },
         gallery_id: {
             type: DataTypes.INTEGER,
-            references: 'gallery',
-            referencesKey: 'id'
+            primaryKey: true
         }
     }, {
         timestamps: false,
@@ -17,13 +15,8 @@ module.exports = (sequelize, DataTypes) => {
         freezeTableName: true,
         tableName: 'user_gallery'
     });
-    user_gallery.removeAttribute('id');
     user_gallery.associate = function (models) {
         // associations can be defined here
-
-        models.user.belongsToMany(models.gallery, { through: models.user_gallery, onDelete: 'CASCADE', hooks: true})
-        models.gallery.belongsToMany(models.user, { through: models.user_gallery, onDelete: 'CASCADE', hooks: true})
-        
     };
     return user_gallery;
 };
