@@ -3,30 +3,31 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Gallery;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/comment")
- */
+
 class CommentController extends AbstractController
 {
     /**
-     * @Route("/", name="comment_index", methods={"GET"})
+     * @Route("/comment", name="comment_index", methods={"GET"})
      */
     public function index(CommentRepository $commentRepository): Response
     {
-        return $this->render('main/comment/index.html.twig', [
+        return $this->render('comment/index.html.twig', [
             'comments' => $commentRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="comment_new", methods={"GET","POST"})
+     * @Route("/comment/new", name="comment_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -42,24 +43,24 @@ class CommentController extends AbstractController
             return $this->redirectToRoute('comment_index');
         }
 
-        return $this->render('admin/comment/new.html.twig', [
+        return $this->render('comment/new.html.twig', [
             'comment' => $comment,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="comment_show", methods={"GET"})
+     * @Route("/comment/{id}", name="comment_show", methods={"GET"})
      */
     public function show(Comment $comment): Response
     {
-        return $this->render('admin/comment/show.html.twig', [
+        return $this->render('comment/show.html.twig', [
             'comment' => $comment,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="comment_edit", methods={"GET","POST"})
+     * @Route("/comment/{id}/edit", name="comment_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Comment $comment): Response
     {
@@ -72,14 +73,14 @@ class CommentController extends AbstractController
             return $this->redirectToRoute('comment_index');
         }
 
-        return $this->render('admin/comment/edit.html.twig', [
+        return $this->render('comment/edit.html.twig', [
             'comment' => $comment,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="comment_delete", methods={"DELETE"})
+     * @Route("/comment/{id}", name="comment_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Comment $comment): Response
     {
@@ -91,4 +92,29 @@ class CommentController extends AbstractController
 
         return $this->redirectToRoute('comment_index');
     }
+
+
+
+    /**
+     * @Route("/event/{yeet}/gallery/{id}", name="gallery_show")
+     */
+    public function gallery(Gallery $gallery, Request $request, ObjectManager $manager) {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $comment->setUser($this->getUser());
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setGallery($gallery);
+            $manager->persist($comment);
+            $manager->flush();
+        }
+        return $this->render('main/gallery/show.html.twig', [
+            "gallery" => $gallery,
+            "form" => $form->createView(),
+        ]);
+    }
 }
+
+
