@@ -3,13 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\User;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Twig\Environment;
 
 /**
  * @Route("/event")
@@ -74,9 +78,12 @@ class EventController extends AbstractController
             $isParticipating = false;
         }
 
+        $participatingCount = count($event->getUsers());
+
         return $this->render('main/event/show.html.twig', [
             'event' => $event,
             'isParticipating' => $isParticipating,
+            'participatingCount' => $participatingCount,
         ]);
     }
 
@@ -154,6 +161,31 @@ class EventController extends AbstractController
             $entityManager->flush();
         }
 
+        return $this->redirectToRoute('event_index');
+    }
+
+    /**
+     * @Route("/report/{id}", name="event_report")
+     */
+    public function report(Request $request, Event $event, \Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em, UserInterface $user)
+        {
+            $members = $em->getRepository(User::class)->findByRole('ROLE_BDE');
+            $content = $request->get('report_message');
+            if ($members) {
+                foreach ($members as $member){
+                    $message = (new \Swift_Message('signalement évènement :'.$event->getName()))
+                        ->setFrom($this->getUser()->getEmail())
+                        ->setTo($member->getEmail())
+                        ->setBody($renderer->render('main/event/report.html.twig', [
+                            'content'=>$content,
+                            'event'=>$event
+                        ]),
+                            'text/html'
+                        );
+                    $mailer->send($message);
+
+                }
+            }
         return $this->redirectToRoute('event_index');
     }
 }

@@ -18,42 +18,44 @@
 {% endblock %}
 
 {% block body %}
-    <div id="sortBar">
-        <p>Trier par: </p>
-        <select id="sortBy">
-            <option value="lastName">Nom</option>
-            <option value="firstName">Prénom</option>
-            <option value="campus">Campus</option>
-            <option value="gender">Genre</option>
-            <option value="association">Association</option>
-            <option value="role">Role</option>
-        </select>
-        <p>Ordre: </p>
-        <select id="orderBy">
-            <option value="asc">Croissant</option>
-            <option value="desc">Décroissant</option>
-        </select>
+<div id="content">
+    <div class="dashboard">
+        <div id="sortBar">
+            <p id="sort">Trier par : </p>
+            <select id="sortBy">
+                <option value="lastName" selected>Nom</option>
+                <option value="firstName">Prénom</option>
+                <option value="campus">Campus</option>
+                <option value="gender">Genre</option>
+                <option value="association">Association</option>
+                <option value="role">Rôle</option>
+            </select>
+            <p id="order">Ordre : </p>
+            <select id="orderBy">
+                <option value="asc" selected>Croissant</option>
+                <option value="desc">Décroissant</option>
+            </select>
+        </div>
+
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th> 
+                    <th>Campus</th>
+                    <th>Genre</th>
+                    <th>Association</th>
+                    <th>Rôle</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
     </div>
-
-    <table id="table" class="display">
-        <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Campus</th>
-            <th>Gender</th>
-            <th>Association</th>
-            <th>Role</th>
-        </tr>
-        </thead>
-        <tbody id="tbody">
-
-        </tbody>
-    </table>
-
-
-
+</div>
 {% endblock %}
 
 {% block javascripts %}
