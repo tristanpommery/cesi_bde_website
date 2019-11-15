@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Service\Cart;
 
 use App\Entity\Product;
 use App\Entity\User;
 use App\Repository\ProductRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,13 +17,15 @@ use Twig\Environment;
 class CartService
 {
 
-    protected $session;
-    protected $productRepository;
+    private $session;
+    private $productRepository;
+    private $manager;
 
-    public function __construct(SessionInterface $session, ProductRepository $productRepository)
+    public function __construct(SessionInterface $session, ProductRepository $productRepository, ObjectManager $manager)
     {
         $this->session = $session;
         $this->productRepository = $productRepository;
+        $this->manager = $manager;
     }
 
     public function add(int $id, Request $request)
@@ -29,15 +33,16 @@ class CartService
 
         $value = $request->cookies->get('cartCookie');
         $cart = $this->session->get('cart', []);
+        $product = $this->productRepository->find($id);
 
         if ($value !== null) {
             $cart = json_decode($value, true);
         }
 
-        if (!empty($cart[$id])) {
-            $cart[$id]++;
-        } else {
+        if (empty($cart[$id])) {
             $cart[$id] = 1;
+        } elseif ($cart[$id] < $product->getStock()) {
+            $cart[$id]++;
         }
         $cookie = new Cookie('cartCookie', json_encode($cart), (time() + 7 * 24 * 60 * 60));
         $this->session->set('cart', $cart);
@@ -112,10 +117,18 @@ class CartService
     public function checkout(\Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em, UserInterface $user)
     {
         $members = $em->getRepository(User::class)->findByRole('ROLE_BDE');
+        $datas = $this->getFullCart();
+        foreach($datas as $data) {
+            $product = $data['product'];
+            $quantity = $data['quantity'];
+            $product->setStock($product->getStock() - $quantity);
+            $product->setSoldCount($product->getSoldCount() + $quantity); 
+            $this->manager->persist($product);
+        }
+        $this->manager->flush();
+
         if ($members) {
-            foreach ($members as $member){
-
-
+            foreach ($members as $member) {
                 $message = (new \Swift_Message('Récapitulatif commande'))
                     ->setFrom('noreply@bde-cesi-st.fr')
                     ->setTo($member->getEmail())
@@ -127,11 +140,9 @@ class CartService
                         'text/html'
                     );
                 $mailer->send($message);
-
             }
         }
         unset($_COOKIE['cartCookie']);
         setcookie('cartCookie', null, -1, '/');
     }
 }
-

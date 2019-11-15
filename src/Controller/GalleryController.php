@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Event;
 use App\Entity\Gallery;
 use App\Entity\User;
@@ -96,4 +97,5 @@ class GalleryController extends AbstractController
         }
         return $this->redirectToRoute('gallery_event', ['id' => $event->getId()]);
     }
+
 }
