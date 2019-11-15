@@ -164,18 +164,19 @@ class EventController extends AbstractController
     /**
      * @Route("/report/{id}", name="event_report")
      */
-    public function report(Event $event, \Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em, UserInterface $user)
+    public function report(Request $request, Event $event, \Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em, UserInterface $user)
         {
             $members = $em->getRepository(User::class)->findByRole('ROLE_BDE');
-
+            $content = $request->get('youpie');
             if ($members) {
                 foreach ($members as $member){
                     $message = (new \Swift_Message('signalement évènement :'.$event->getName()))
                         ->setFrom($this->getUser()->getEmail())
                         ->setTo($member->getEmail())
-                        ->setBody(
-                            $renderer->render('', [
-                            ]),
+                        ->setBody($renderer->render('main/event/report.html.twig', [
+                            'content'=>$content,
+                            'event'=>$event
+                        ]),
                             'text/html'
                         );
                     $mailer->send($message);
