@@ -197,11 +197,19 @@ nav{
 #footer{
     height: 200px;
     background: #161616;
+    display: grid;
 }
 
-#footer > p{
+#footer > a{
     margin: 0;
+    text-decoration: none;
     color: white;
     font-family: 'roboto-regular';
-    font-size: 3em;
+    font-size: 1.5em;
+    justify-self: center;
+    align-self: center;
+}
+
+#footer > a:hover{
+    color: rgb(179, 179, 179);
 }
