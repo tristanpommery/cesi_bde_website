@@ -170,7 +170,7 @@ class EventController extends AbstractController
     public function report(Request $request, Event $event, \Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em, UserInterface $user)
         {
             $members = $em->getRepository(User::class)->findByRole('ROLE_BDE');
-            $content = $request->get('youpie');
+            $content = $request->get('report_message');
             if ($members) {
                 foreach ($members as $member){
                     $message = (new \Swift_Message('signalement évènement :'.$event->getName()))

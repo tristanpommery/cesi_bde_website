@@ -4,13 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\Gallery;
+use App\Entity\User;
 use App\Form\GalleryType;
 use App\Repository\GalleryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Twig\Environment;
 
 
 class GalleryController extends AbstractController
@@ -64,6 +68,32 @@ class GalleryController extends AbstractController
             $manager->flush();
         }
 
+        return $this->redirectToRoute('gallery_event', ['id' => $event->getId()]);
+    }
+
+
+    /**
+     * @Route("/report/{id}", name="gallery_report")
+     */
+    public function report(Request $request, Event $event, \Swift_Mailer $mailer, Environment $renderer, EntityManagerInterface $em, UserInterface $user)
+    {
+        $members = $em->getRepository(User::class)->findByRole('ROLE_BDE');
+        $content = $request->get('report_message');
+        if ($members) {
+            foreach ($members as $member) {
+                $message = (new \Swift_Message('signalement évènement :' . $event->getName()))
+                    ->setFrom($this->getUser()->getEmail())
+                    ->setTo($member->getEmail())
+                    ->setBody($renderer->render('main/event/report.html.twig', [
+                        'content' => $content,
+                        'event' => $event
+                    ]),
+                        'text/html'
+                    );
+                $mailer->send($message);
+
+            }
+        }
         return $this->redirectToRoute('gallery_event', ['id' => $event->getId()]);
     }
 }
