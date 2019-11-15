@@ -62,19 +62,51 @@ nav{
 }
 
 #sortBar{
-    grid-column: 1/span 5;
     grid-row: 1;
+    grid-column: 1/span 5;
+    display: grid;
+    grid-template-columns: 15% auto 15% auto;
+    background: #161616;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#sort{
+    grid-row: 1;
+    grid-column: 1;
+    padding-left: 40px;
+}
+
+#sortBy{
+    width: 50%;
+    grid-row: 1;
+    grid-column: 2;
+}
+
+#order{
+    grid-row: 1;
+    grid-column: 3;
+    padding-left: 40px;
+}
+
+#orderBy{
+    width: 50%;
+    grid-row: 1;
+    grid-column: 4;
 }
 
 #sortBar > p{
     margin: 0;
-    padding-left: 40px;
-    grid-row: 1;
-    grid-column: 1;
-    background: #161616;
     color: white;
     font-family: 'roboto-light';
-    font-size: 3em;
+    font-size: 2em;
+}
+
+#sortBar > select{
+    margin: 0;
+    color: #161616;
+    font-family: 'roboto-light';
+    font-size: 1.5em;
 }
 
 .eventCard{
